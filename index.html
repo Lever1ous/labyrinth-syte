@@ -3,871 +3,347 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Лабиринт — Лор и Правила</title>
-  <meta name="description" content="Лабиринт: лор мира и правила Discord-сервера. Удобный просмотр, поиск, разделы." />
+  <title>Лабиринт — Главная</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
 
   <style>
     :root{
-      --bg:#05060a;
-      --panel:#0b1020cc;
-      --panel2:#081025cc;
-      --text:#d7e1ff;
-      --muted:#94a3b8;
-      --line:#1b2a55;
-      --cyan:#2be7ff;
-      --violet:#b266ff;
-      --pink:#ff4fd8;
-      --blue:#3aa0ff;
-      --glow: 0 0 24px rgba(43,231,255,.25), 0 0 70px rgba(178,102,255,.12);
-      --glow2: 0 0 16px rgba(255,79,216,.18);
-      --radius: 18px;
-      --shadow: 0 18px 60px rgba(0,0,0,.55);
-      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Noto Sans", "Helvetica Neue", sans-serif;
+      --bg:#070A10;
+      --panel:#0C1220;
+      --panel2:#0A0F1C;
+      --text:#EAF0FF;
+      --muted:#A9B4D6;
+      --line:rgba(255,255,255,.08);
+      --glow:rgba(122,162,247,.35);
+      --accent:#7AA2F7;
+      --accent2:#BB9AF7;
+      --good:#9ECE6A;
+      --bad:#F7768E;
+      --warn:#E0AF68;
+      --radius:18px;
+      --shadow: 0 10px 40px rgba(0,0,0,.45);
     }
-
     *{box-sizing:border-box}
-    html,body{height:100%}
     body{
       margin:0;
-      font-family:var(--sans);
+      font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial;
       color:var(--text);
       background:
-        radial-gradient(1200px 700px at 70% -10%, rgba(178,102,255,.22), transparent 55%),
-        radial-gradient(900px 500px at 10% 20%, rgba(43,231,255,.18), transparent 55%),
-        radial-gradient(1000px 600px at 30% 110%, rgba(255,79,216,.14), transparent 55%),
-        linear-gradient(180deg, #03040a 0%, #050716 100%);
-      overflow-x:hidden;
+        radial-gradient(1200px 700px at 20% -10%, rgba(187,154,247,.18), transparent 60%),
+        radial-gradient(900px 600px at 90% 10%, rgba(122,162,247,.18), transparent 55%),
+        radial-gradient(900px 600px at 50% 120%, rgba(158,206,106,.10), transparent 55%),
+        var(--bg);
+      min-height:100vh;
     }
-
-    /* subtle grid */
-    .grid::before{
-      content:"";
-      position:fixed;
-      inset:0;
-      pointer-events:none;
-      background:
-        linear-gradient(rgba(43,231,255,.06) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(178,102,255,.05) 1px, transparent 1px);
-      background-size: 36px 36px;
-      mask-image: radial-gradient(60% 60% at 50% 25%, #000 60%, transparent 100%);
-      opacity:.55;
-      z-index:-1;
-    }
-
-    a{color:inherit; text-decoration:none}
-    .wrap{
-      max-width:1200px;
-      margin:0 auto;
-      padding:24px;
-    }
-
-    /* topbar */
-    .topbar{
-      position:sticky;
-      top:0;
-      z-index:50;
+    a{color:inherit;text-decoration:none}
+    .wrap{max-width:1100px;margin:0 auto;padding:22px}
+    .nav{
+      position:sticky;top:0;z-index:10;
       backdrop-filter: blur(10px);
-      background: linear-gradient(180deg, rgba(5,6,10,.85) 0%, rgba(5,6,10,.55) 100%);
-      border-bottom:1px solid rgba(27,42,85,.7);
+      background: linear-gradient(to bottom, rgba(7,10,16,.86), rgba(7,10,16,.55));
+      border-bottom:1px solid var(--line);
     }
-    .topbar .inner{
-      max-width:1200px;
-      margin:0 auto;
-      padding:14px 24px;
-      display:flex;
-      gap:14px;
-      align-items:center;
-      justify-content:space-between;
+    .nav-inner{
+      display:flex;gap:14px;align-items:center;justify-content:space-between;
+      max-width:1100px;margin:0 auto;padding:14px 22px;
     }
     .brand{
-      display:flex;
-      gap:12px;
-      align-items:center;
-      min-width:220px;
+      display:flex;align-items:center;gap:12px;
+      font-weight:800;letter-spacing:.6px;
     }
     .logo{
-      width:38px;height:38px;border-radius:12px;
-      background: radial-gradient(circle at 30% 30%, rgba(43,231,255,.8), rgba(178,102,255,.35) 55%, rgba(255,79,216,.25) 100%);
-      box-shadow: var(--glow);
-      border:1px solid rgba(43,231,255,.35);
+      width:34px;height:34px;border-radius:12px;
+      background: radial-gradient(circle at 30% 30%, rgba(187,154,247,.8), rgba(122,162,247,.5) 45%, rgba(0,0,0,.2) 70%);
+      box-shadow: 0 0 0 1px var(--line), 0 10px 30px rgba(122,162,247,.15);
     }
-    .brand h1{
-      margin:0;
-      font-size:14px;
-      letter-spacing:.18em;
-      text-transform:uppercase;
-      line-height:1.1;
-    }
-    .brand span{
-      display:block;
-      font-size:12px;
-      letter-spacing:.08em;
+    .links{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+    .pill{
+      padding:10px 12px;border-radius:999px;
+      border:1px solid var(--line);
+      background: rgba(12,18,32,.55);
       color:var(--muted);
-      margin-top:3px;
-    }
-
-    .nav{
-      display:flex;
-      gap:10px;
-      flex-wrap:wrap;
-      justify-content:center;
-    }
-    .chip{
-      padding:8px 12px;
-      border-radius:999px;
-      border:1px solid rgba(27,42,85,.8);
-      background: rgba(11,16,32,.6);
-      color: rgba(215,225,255,.95);
+      transition:.2s;
+      font-weight:600;
       font-size:13px;
-      transition:.2s ease;
-      box-shadow: 0 0 0 rgba(43,231,255,0);
     }
-    .chip:hover{
-      border-color: rgba(43,231,255,.6);
-      box-shadow: 0 0 22px rgba(43,231,255,.12);
-      transform: translateY(-1px);
-    }
-
-    .search{
-      display:flex;
-      gap:10px;
-      align-items:center;
-      min-width:280px;
-      justify-content:flex-end;
-    }
-    .search input{
-      width:320px;
-      max-width:45vw;
-      padding:10px 12px;
-      border-radius:12px;
-      border:1px solid rgba(27,42,85,.85);
-      background: rgba(8,16,37,.65);
-      color:var(--text);
-      outline:none;
-      box-shadow: inset 0 0 0 1px rgba(255,255,255,.03);
-    }
-    .search input:focus{
-      border-color: rgba(43,231,255,.75);
-      box-shadow: 0 0 0 3px rgba(43,231,255,.12);
+    .pill:hover{transform:translateY(-1px);border-color:rgba(122,162,247,.35);color:var(--text)}
+    .pill.active{color:var(--text);border-color:rgba(122,162,247,.55);box-shadow:0 0 0 3px rgba(122,162,247,.12)}
+    .auth{
+      display:flex;gap:10px;align-items:center;flex-wrap:wrap;justify-content:flex-end;
     }
     .btn{
-      padding:10px 12px;
-      border-radius:12px;
-      border:1px solid rgba(27,42,85,.85);
-      background: rgba(11,16,32,.7);
+      border:1px solid var(--line);
+      background: rgba(12,18,32,.7);
       color:var(--text);
-      cursor:pointer;
-      transition:.2s ease;
-      font-family:var(--mono);
+      padding:10px 12px;border-radius:12px;
+      cursor:pointer;font-weight:700;font-size:13px;
+      transition:.2s;
+    }
+    .btn:hover{transform:translateY(-1px);border-color:rgba(187,154,247,.5)}
+    .btn.primary{
+      background: linear-gradient(90deg, rgba(122,162,247,.85), rgba(187,154,247,.85));
+      border-color: transparent;
+      color:#08101e;
+    }
+    .btn.primary:hover{filter:brightness(1.05)}
+    .badge{
+      display:inline-flex;align-items:center;gap:8px;
+      padding:8px 10px;border-radius:999px;
+      border:1px solid var(--line);
+      background: rgba(12,18,32,.55);
+      color:var(--muted);
       font-size:12px;
+      max-width:360px;
+      overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
     }
-    .btn:hover{
-      border-color: rgba(255,79,216,.55);
-      box-shadow: var(--glow2);
-      transform: translateY(-1px);
-    }
-
-    /* hero */
+    .dot{width:8px;height:8px;border-radius:99px;background:var(--bad);box-shadow:0 0 18px rgba(247,118,142,.45)}
+    .dot.on{background:var(--good);box-shadow:0 0 18px rgba(158,206,106,.45)}
     .hero{
-      padding:26px 0 10px;
-    }
-    .heroCard{
-      border-radius: var(--radius);
-      background: linear-gradient(135deg, rgba(11,16,32,.78), rgba(8,16,37,.62));
-      border:1px solid rgba(27,42,85,.85);
-      box-shadow: var(--shadow);
+      margin-top:26px;
+      border:1px solid var(--line);
+      background: linear-gradient(180deg, rgba(12,18,32,.75), rgba(10,15,28,.55));
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
       overflow:hidden;
       position:relative;
     }
-    .heroCard::before{
+    .hero::before{
       content:"";
-      position:absolute;
-      inset:-2px;
-      background: linear-gradient(90deg,
-        rgba(43,231,255,.0),
-        rgba(43,231,255,.25),
-        rgba(178,102,255,.25),
-        rgba(255,79,216,.20),
-        rgba(43,231,255,.0)
-      );
-      filter: blur(16px);
-      opacity:.35;
-      z-index:0;
+      position:absolute;inset:-2px;
+      background: radial-gradient(900px 260px at 30% 0%, rgba(122,162,247,.22), transparent 55%),
+                  radial-gradient(600px 240px at 85% 10%, rgba(187,154,247,.18), transparent 55%);
+      pointer-events:none;
     }
-    .heroInner{
-      position:relative;
-      z-index:1;
-      padding:22px 22px 18px;
-      display:grid;
-      grid-template-columns: 1.3fr .7fr;
-      gap:16px;
-      align-items:start;
+    .hero-inner{position:relative;padding:28px}
+    h1{margin:0 0 8px;font-size:34px;letter-spacing:.2px}
+    .sub{color:var(--muted);max-width:820px;line-height:1.6}
+    .grid{
+      display:grid;grid-template-columns:repeat(3,minmax(0,1fr));
+      gap:14px;margin-top:18px;
     }
-    .heroTitle{
-      margin:0;
-      font-size:28px;
-      letter-spacing:.06em;
-      text-transform:uppercase;
+    .card{
+      border:1px solid var(--line);
+      background: rgba(7,10,16,.35);
+      border-radius:16px;padding:16px;
+      transition:.2s;
+      min-height:118px;
     }
-    .heroText{
-      margin:10px 0 0;
-      color: rgba(215,225,255,.86);
-      line-height:1.55;
+    .card:hover{transform:translateY(-2px);border-color:rgba(122,162,247,.35)}
+    .card h3{margin:0 0 6px;font-size:14px}
+    .card p{margin:0;color:var(--muted);font-size:12.5px;line-height:1.55}
+    .footer{
+      margin:22px 0 10px;color:rgba(233,240,255,.6);
+      font-size:12px;display:flex;gap:10px;justify-content:space-between;flex-wrap:wrap;
     }
-    .tagRow{
-      margin-top:14px;
-      display:flex;
-      gap:10px;
-      flex-wrap:wrap;
-    }
-    .tag{
-      font-family:var(--mono);
-      font-size:12px;
-      color: rgba(215,225,255,.9);
-      border:1px solid rgba(27,42,85,.85);
-      background: rgba(5,6,10,.35);
-      padding:6px 10px;
-      border-radius:999px;
-    }
-
-    .heroSide{
-      border-radius:16px;
-      padding:16px;
-      border:1px solid rgba(27,42,85,.85);
-      background: rgba(5,6,10,.25);
-    }
-    .heroSide h3{
-      margin:0 0 10px;
-      font-size:13px;
-      letter-spacing:.14em;
-      text-transform:uppercase;
-      color: rgba(215,225,255,.88);
-    }
-    .quick{
-      display:grid;
-      gap:10px;
-      font-size:13px;
-      color: rgba(215,225,255,.85);
-    }
-    .quick b{
-      color: rgba(43,231,255,.9);
-      font-family:var(--mono);
-      font-weight:600;
-    }
-
-    /* layout */
-    .main{
-      margin-top:18px;
-      display:grid;
-      grid-template-columns: 280px 1fr;
-      gap:18px;
-      align-items:start;
-    }
-
-    /* sidebar */
-    .side{
-      position:sticky;
-      top:86px;
-      border-radius: var(--radius);
-      border:1px solid rgba(27,42,85,.85);
-      background: rgba(11,16,32,.55);
-      box-shadow: var(--shadow);
-      padding:14px;
-    }
-    .side h2{
-      margin:6px 0 10px;
-      font-size:13px;
-      letter-spacing:.14em;
-      text-transform:uppercase;
-      color: rgba(215,225,255,.88);
-    }
-    .side a{
-      display:block;
-      padding:9px 10px;
-      border-radius:12px;
-      border:1px solid transparent;
-      color: rgba(215,225,255,.86);
-      font-size:13px;
-      transition:.2s ease;
-    }
-    .side a:hover{
-      border-color: rgba(43,231,255,.45);
-      background: rgba(8,16,37,.55);
-    }
-    .side small{
-      display:block;
-      color:var(--muted);
-      margin-top:10px;
-      line-height:1.35;
-    }
-
-    /* content cards */
-    section.card{
-      border-radius: var(--radius);
-      border:1px solid rgba(27,42,85,.85);
-      background: rgba(11,16,32,.55);
-      box-shadow: var(--shadow);
-      padding:16px;
-      margin-bottom:18px;
-    }
-    section.card h2{
-      margin:4px 0 10px;
-      font-size:16px;
-      letter-spacing:.12em;
-      text-transform:uppercase;
-      color: rgba(43,231,255,.92);
-    }
-    .muted{
-      color: rgba(215,225,255,.72);
-      line-height:1.6;
-    }
-
-    /* accordions */
-    details{
-      border:1px solid rgba(27,42,85,.7);
-      background: rgba(8,16,37,.45);
-      border-radius: 14px;
-      padding:10px 12px;
-      margin:10px 0;
-      transition: .2s ease;
-    }
-    details[open]{
-      border-color: rgba(178,102,255,.55);
-      box-shadow: 0 0 30px rgba(178,102,255,.08);
-    }
-    summary{
-      cursor:pointer;
-      list-style:none;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:10px;
-      font-weight:600;
-      color: rgba(215,225,255,.92);
-    }
-    summary::-webkit-details-marker{display:none}
-    .chev{
-      font-family:var(--mono);
-      color: rgba(43,231,255,.85);
-      opacity:.9;
-    }
-    details .body{
-      margin-top:10px;
-      color: rgba(215,225,255,.82);
-      line-height:1.6;
-      font-size:14px;
-    }
-    .rule{
-      padding:10px 12px;
-      border-radius: 14px;
-      border:1px dashed rgba(43,231,255,.25);
-      background: rgba(5,6,10,.25);
-      margin:10px 0;
-    }
-    .rule code{
-      font-family:var(--mono);
-      color: rgba(255,79,216,.9);
-      background: rgba(255,79,216,.08);
-      padding:2px 6px;
-      border-radius:8px;
-    }
-
-    /* highlight for search */
-    mark{
-      background: rgba(43,231,255,.18);
-      color: var(--text);
-      padding: 0 .18em;
-      border-radius: .35em;
-      border:1px solid rgba(43,231,255,.25);
-      box-shadow: 0 0 14px rgba(43,231,255,.10);
-    }
-
-    /* footer */
-    footer{
-      margin:18px 0 30px;
-      color: var(--muted);
-      font-size:12px;
-      text-align:center;
-    }
-
-    /* responsive */
-    @media (max-width: 980px){
-      .heroInner{grid-template-columns: 1fr; }
-      .main{grid-template-columns: 1fr; }
-      .side{position:relative; top:auto;}
-      .search input{width: 44vw;}
-    }
-    @media (max-width: 520px){
-      .topbar .inner{gap:10px; padding:12px 14px;}
-      .brand{min-width:auto}
-      .search{min-width:auto}
-      .search input{width: 58vw;}
-      .heroTitle{font-size:22px;}
+    .sep{opacity:.55}
+    @media (max-width:900px){
+      .grid{grid-template-columns:1fr}
+      h1{font-size:28px}
     }
   </style>
 </head>
 
-<body class="grid">
-  <header class="topbar">
-    <div class="inner">
+<body>
+  <header class="nav">
+    <div class="nav-inner">
       <div class="brand">
-        <div class="logo" aria-hidden="true"></div>
+        <div class="logo"></div>
         <div>
-          <h1>Лабиринт</h1>
-          <span>лор + правила · текстовая RP</span>
+          <div>ЛАБИРИНТ</div>
+          <div style="font-size:12px;color:var(--muted);font-weight:600;letter-spacing:0">мир-ловушка • RP проект</div>
         </div>
       </div>
 
-      <nav class="nav" aria-label="Навигация">
-        <a class="chip" href="#lore">Лор</a>
-        <a class="chip" href="#mechanics">Механики</a>
-        <a class="chip" href="#factions">Фракции</a>
-        <a class="chip" href="#marks">Отпечатки</a>
-        <a class="chip" href="#rules">Правила</a>
-        <a class="chip" href="#gm">ГМ</a>
-        <a class="chip" href="#adm">АДМ</a>
+      <nav class="links">
+        <a class="pill active" href="index.html">Главная</a>
+        <a class="pill" href="rules.html">Правила</a>
+        <a class="pill" href="lore.html">Лор</a>
+        <a class="pill" href="magic.html">Магия</a>
+        <a class="pill" href="team.html">Команда</a>
+        <a class="pill" href="panel.html">Панель КП</a>
       </nav>
 
-      <div class="search">
-        <input id="q" type="search" placeholder="Поиск по странице… (например: FearRP, Сирены, Эхо)" />
-        <button class="btn" id="clear" type="button">CLR</button>
+      <div class="auth">
+        <span class="badge" id="authBadge"><span class="dot" id="dot"></span><span id="authText">Не вошёл</span></span>
+        <button class="btn" id="btnLogin" onclick="openAuth()">Войти</button>
+        <button class="btn" id="btnGoogle" onclick="signInGoogle()">Google</button>
+        <button class="btn" id="btnLogout" onclick="signOut()" style="display:none">Выйти</button>
       </div>
     </div>
   </header>
 
-  <div class="wrap">
-    <div class="hero">
-      <div class="heroCard">
-        <div class="heroInner">
-          <div>
-            <h2 class="heroTitle">Мир-ловушка, живой и растущий</h2>
-            <p class="heroText">
-              Лабиринт притягивает тех, чьи желания в момент кризиса были сильнее всего.
-              Он питается эмоциями, изучает их и превращает жизнь гостей в бесконечную игру.
-              Нью-Вавилон — крупнейший стабильный узел и столица-крепость, построенная вертикально.
-            </p>
-            <div class="tagRow">
-              <span class="tag">киберпанк-фэнтези</span>
-              <span class="tag">Эхо совместимости</span>
-              <span class="tag">27 ярусов Нью-Вавилона</span>
-              <span class="tag">сильный лор</span>
-            </div>
+  <main class="wrap">
+    <section class="hero">
+      <div class="hero-inner">
+        <h1>Добро пожаловать в Лабиринт</h1>
+        <div class="sub">
+          Мир-ловушка, живой и растущий. Он притягивает тех, чьи желания в момент кризиса были сильнее всего.
+          Здесь вы не “играете в игру” — вы **строите её будущее**, влияя на рост зон и рождение новых устойчивых областей.
+        </div>
+
+        <div class="grid">
+          <a class="card" href="rules.html">
+            <h3>📜 Правила сервера</h3>
+            <p>Свод поведения, RP-ограничения, правила веток, FearRP, Meta, ERP и принципы наказаний.</p>
+          </a>
+          <a class="card" href="lore.html">
+            <h3>🧭 Лор и фракции</h3>
+            <p>Фракции, механики мира, интрига Инкубатора, локации, события недели, Нью-Вавилон.</p>
+          </a>
+          <a class="card" href="magic.html">
+            <h3>🌀 Магия и Отпечатки</h3>
+            <p>Источники магии, ограничения, валютность эмоций. 10 способностей на каждый Отпечаток.</p>
+          </a>
+        </div>
+
+        <div style="margin-top:18px;display:flex;gap:10px;flex-wrap:wrap">
+          <a class="btn primary" href="https://discord.gg/the-labyrinth" target="_blank" rel="noreferrer">Перейти в Discord</a>
+          <a class="btn" href="magic.html">Открыть Магию</a>
+          <a class="btn" href="panel.html">Панель КП</a>
+        </div>
+      </div>
+    </section>
+
+    <div class="footer">
+      <div>© Лабиринт • GitHub Pages</div>
+      <div class="sep">Если вход/редирект не работает — проверь URL Configuration в Supabase и Redirect URI в Google Cloud.</div>
+    </div>
+  </main>
+
+  <!-- AUTH MODAL -->
+  <div id="authModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);backdrop-filter:blur(6px);z-index:50;">
+    <div style="max-width:520px;margin:70px auto;padding:18px;">
+      <div style="border:1px solid var(--line);background:linear-gradient(180deg, rgba(12,18,32,.85), rgba(10,15,28,.75));border-radius:18px;box-shadow:var(--shadow);overflow:hidden;">
+        <div style="padding:14px 16px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line);">
+          <div style="font-weight:800;letter-spacing:.3px">Вход / регистрация</div>
+          <button class="btn" onclick="closeAuth()">Закрыть</button>
+        </div>
+        <div style="padding:16px;">
+          <div style="color:var(--muted);font-size:13px;line-height:1.6;margin-bottom:12px">
+            Можно войти через Google или по Email (magic link / пароль — зависит от настроек Supabase).
           </div>
 
-          <aside class="heroSide">
-            <h3>Быстрые правила RP</h3>
-            <div class="quick">
-              <div><b>NonRP</b>: не ломай логику сцены</div>
-              <div><b>Meta</b>: OOC-инфа ≠ RP-инфа</div>
-              <div><b>FearRP</b>: страх обязателен при угрозе</div>
-              <div><b>Ход</b>: не пиши два поста подряд</div>
+          <div style="display:grid;gap:10px;">
+            <button class="btn primary" onclick="signInGoogle()">Войти через Google</button>
+
+            <div style="display:grid;gap:8px;border:1px solid var(--line);border-radius:16px;padding:12px;background:rgba(7,10,16,.35)">
+              <div style="font-weight:700">Email</div>
+              <input id="email" placeholder="you@example.com"
+                     style="width:100%;padding:12px;border-radius:12px;border:1px solid var(--line);background:rgba(12,18,32,.55);color:var(--text);outline:none" />
+              <input id="password" placeholder="Пароль (если включен)"
+                     type="password"
+                     style="width:100%;padding:12px;border-radius:12px;border:1px solid var(--line);background:rgba(12,18,32,.55);color:var(--text);outline:none" />
+              <div style="display:flex;gap:8px;flex-wrap:wrap">
+                <button class="btn" onclick="emailSignUp()">Регистрация</button>
+                <button class="btn" onclick="emailSignIn()">Войти</button>
+                <button class="btn" onclick="sendMagicLink()">Magic Link</button>
+              </div>
+              <div style="color:rgba(233,240,255,.55);font-size:12px;line-height:1.45">
+                Если парольный вход отключён, пользуйся Magic Link (письмо придёт на почту).
+              </div>
             </div>
-          </aside>
+
+            <div id="authMsg" style="color:var(--muted);font-size:13px;line-height:1.55"></div>
+          </div>
         </div>
       </div>
     </div>
-
-    <div class="main">
-      <aside class="side">
-        <h2>Оглавление</h2>
-        <a href="#lore">Лор мира</a>
-        <a href="#mechanics">Механики</a>
-        <a href="#factions">Фракции</a>
-        <a href="#marks">Отпечатки (типы)</a>
-        <a href="#locations">Ключевые локации</a>
-        <a href="#newbabylon">Нью-Вавилон и 27 ярусов</a>
-        <a href="#rules">Правила сервера</a>
-        <a href="#gm">Правила ГМ</a>
-        <a href="#adm">Правила АДМ</a>
-        <small>
-          Подсказка: используйте поиск сверху. Он подсветит найденные слова на странице.
-        </small>
-      </aside>
-
-      <main id="content">
-        <!-- LORE -->
-        <section id="lore" class="card">
-          <h2>Лор мира</h2>
-          <p class="muted">
-            <b>Лабиринт</b> — мир-ловушка, живой и растущий. Он притягивает тех, чьи желания в момент кризиса были сильнее всего.
-            Сюда попадают не случайно, а по зову плоти, души или жажды власти. Лабиринт питается этими эмоциями,
-            изучает их и превращает жизнь гостей в бесконечную игру.
-          </p>
-
-          <details open>
-            <summary>Интрига мира <span class="chev">[+]</span></summary>
-            <div class="body">
-              Лабиринт — не тюрьма и не случайность. Это <b>Инкубатор</b>. Он выращивает из слившихся отпечатков нечто новое —
-              чистые эмоции, новые формы жизни, возможно даже богов.
-              Самые гармоничные союзы меняют реальность вокруг себя и становятся ядрами новых устойчивых зон.
-            </div>
-          </details>
-        </section>
-
-        <!-- MECHANICS -->
-        <section id="mechanics" class="card">
-          <h2>Механики</h2>
-
-          <details open>
-            <summary>1) Отпечаток <span class="chev">[+]</span></summary>
-            <div class="body">
-              У каждого гостя проявляется уникальная метка на теле — отражение глубинной страсти, приведшей его в Лабиринт.
-            </div>
-          </details>
-
-          <details>
-            <summary>2) Эхо совместимости <span class="chev">[+]</span></summary>
-            <div class="body">
-              Близость — движущая сила мира. Когда отпечатки вступают в контакт (через страсть, доверие, подчинение),
-              возникает <b>Эхо</b> — вспышка силы, общие видения, обострение чувств. Чем сильнее химия, тем ярче эффект.
-            </div>
-          </details>
-
-          <details>
-            <summary>3) Растущий Лабиринт <span class="chev">[+]</span></summary>
-            <div class="body">
-              Мир постоянно меняется. Новые локации материализуются из коллективных снов, страхов и желаний обитателей.
-              Старые могут исчезнуть, если их перестанут «подпитывать» вниманием.
-            </div>
-          </details>
-        </section>
-
-        <!-- FACTIONS -->
-        <section id="factions" class="card">
-          <h2>Фракции</h2>
-
-          <details open>
-            <summary>Гедонисты <span class="chev">[+]</span></summary>
-            <div class="body">
-              Приняли правила. Ищут наслаждений, усиливают отпечатки через связи. Девиз: <b>«Чувствуй глубже»</b>.
-            </div>
-          </details>
-
-          <details>
-            <summary>Стражи <span class="chev">[+]</span></summary>
-            <div class="body">
-              Верят, что Лабиринт можно понять или «починить». Картографируют зоны, ищут «сердце» системы.
-              К ним тянутся те, кто хочет не только чувствовать, но и знать.
-            </div>
-          </details>
-
-          <details>
-            <summary>Охотники на Эхо <span class="chev">[+]</span></summary>
-            <div class="body">
-              Видят в мире арену. Охотятся на других гостей, чтобы силой/обманом забрать их силу и «снять» отпечаток.
-              Живут по закону джунглей.
-            </div>
-          </details>
-
-          <details>
-            <summary>Бродяги <span class="chev">[+]</span></summary>
-            <div class="body">
-              Не присоединились ни к кому. Строят хрупкие дома в стабильных зонах, налаживают быт и торговлю.
-              Их мечта — не победить Лабиринт, а найти в нём уютный уголок.
-            </div>
-          </details>
-        </section>
-
-        <!-- MARKS -->
-        <section id="marks" class="card">
-          <h2>Отпечатки (типы)</h2>
-          <p class="muted">Сократил в «карточки». Ты можешь расширять список примеров под каждый тип.</p>
-
-          <details open>
-            <summary>ПЛОТЬ <span class="chev">[+]</span></summary>
-            <div class="body">
-              Жажда физического опыта: наслаждение, боль, доказательство существования через чувства.<br><br>
-              Примеры меток: <b>Узор инея</b>, <b>Шрамы-звёзды</b>, <b>Тени под кожей</b>, <b>Губы цвета вина</b>.
-            </div>
-          </details>
-
-          <details>
-            <summary>ВЛАСТЬ <span class="chev">[+]</span></summary>
-            <div class="body">
-              Контроль, подчинение, сила, чтобы не быть уязвимым.<br><br>
-              Примеры: <b>Кольцо из тусклого металла</b>, <b>Зрачки-щели</b>, <b>Запах озона и железа</b>, <b>Незримая корона</b>.
-            </div>
-          </details>
-
-          <details>
-            <summary>СВЯЗЬ <span class="chev">[+]</span></summary>
-            <div class="body">
-              Потребность в любви/понимании или одержимость разрывами и предательством.<br><br>
-              Примеры: <b>Паутина на плечах</b>, <b>Пустые глаза</b>, <b>Эхо сердцебиения</b>, <b>Песочные часы</b>.
-            </div>
-          </details>
-
-          <details>
-            <summary>БЕГСТВО <span class="chev">[+]</span></summary>
-            <div class="body">
-              Желание исчезнуть, стереться, сбежать от себя или судьбы.<br><br>
-              Примеры: <b>Вода в жилах</b>, <b>Осколки зеркала</b>, <b>Тишина вокруг</b>, <b>Следы от мокрых ног</b>.
-            </div>
-          </details>
-
-          <details>
-            <summary>ЗНАНИЕ <span class="chev">[+]</span></summary>
-            <div class="body">
-              Жажда тайн и законов мироздания, магии или данных.<br><br>
-              Примеры: <b>Глаза с бегущими строками</b>, <b>Шёпот страниц</b>, <b>Холодные пальцы</b>.
-            </div>
-          </details>
-
-          <details>
-            <summary>ИСКАЖЕНИЕ <span class="chev">[+]</span></summary>
-            <div class="body">
-              Отторжение собственной сути и желание другой формы/природы.<br><br>
-              Примеры: <b>Отражение-чужестранец</b>, <b>Кожа-хамелеон</b>, <b>Голоса в шрамах</b>.
-            </div>
-          </details>
-        </section>
-
-        <!-- LOCATIONS -->
-        <section id="locations" class="card">
-          <h2>Ключевые локации</h2>
-          <details open>
-            <summary>Ядро (Нью-Вавилон) <span class="chev">[+]</span></summary>
-            <div class="body">
-              Стабильный старый район-пристань: таверны, рынки, жилые гроты. Место отдыха и слухов.
-            </div>
-          </details>
-          <details>
-            <summary>Поля Мимолётных Наслаждений <span class="chev">[+]</span></summary>
-            <div class="body">
-              Блуждающая локация: поля, тёплые озёра, мягкий туман, усиливающий чувства.
-            </div>
-          </details>
-          <details>
-            <summary>Чертоги Памяти <span class="chev">[+]</span></summary>
-            <div class="body">
-              Залы-лабиринты, где стены показывают обрывки воспоминаний гостей.
-            </div>
-          </details>
-          <details>
-            <summary>Цех Изменений <span class="chev">[+]</span></summary>
-            <div class="body">
-              Место, где можно попытаться усилить/исказить/скрыть отпечаток. Рискованно.
-            </div>
-          </details>
-          <details>
-            <summary>Фронтир <span class="chev">[+]</span></summary>
-            <div class="body">
-              Растущая кромка мира. Здесь реальность тонка; можно увидеть рождение новых локаций.
-            </div>
-          </details>
-        </section>
-
-        <!-- NEW BABYLON LEVELS -->
-        <section id="newbabylon" class="card">
-          <h2>Нью-Вавилон — 27 ярусов</h2>
-          <p class="muted">
-            Базовая раскладка по секторам (как мы фиксировали):
-          </p>
-
-          <div class="rule">
-            <b>Артерии</b>: ярус <code>1–4</code><br>
-            <b>Порог</b>: ярус <code>5–8</code><br>
-            <b>Тени</b>: ярус <code>9–11</code><br>
-            <b>Агора</b>: ярус <code>12–15</code><br>
-            <b>Грех и Шёлк</b>: ярус <code>16–20</code><br>
-            <b>Цитадель</b>: ярус <code>21–25</code><br>
-            <b>Спирали</b>: ярус <code>26–27</code>
-          </div>
-
-          <details>
-            <summary>Как использовать в RP <span class="chev">[+]</span></summary>
-            <div class="body">
-              Если сцена “каноничная” (с последствиями) — зовёте ГМ. Для обычных сцен можно играть свободно.
-              Переход между ярусами: по известному пути / сопровождению / логичным транспортным узлам (лифты, рампы, шахты).
-            </div>
-          </details>
-        </section>
-
-        <!-- RULES -->
-        <section id="rules" class="card">
-          <h2>Правила сервера</h2>
-          <p class="muted">Сверстано блоками, чтобы было проще читать. При желании — добавлю “краткую версию”.</p>
-
-          <details open>
-            <summary>0) Основное <span class="chev">[+]</span></summary>
-            <div class="body">
-              <div class="rule"><b>0.1</b> Незнание правил не освобождает от ответственности.</div>
-              <div class="rule"><b>0.2</b> Запрещено использовать баги/недочёты сервера в своих целях.</div>
-              <div class="rule"><b>0.3</b> Запрещено вмешиваться в чужой отыгрыш в чужой ветке через спам или комментарии (исключение: КП/ГМ по делу).</div>
-              <div class="rule"><b>0.4</b> Запрещено пинговать КП чаще одного раза в час (исключение: согласованные сроки/экстренно).</div>
-              <div class="rule"><b>0.5</b> Запрещено неуважительное отношение к КП.</div>
-              <div class="rule"><b>0.6</b> ERP запрещено в общественных местах и чужих ветках. 18+ — только в отведённых каналах и по согласию.</div>
-              <div class="rule"><b>0.7</b> КП вправе изменять правила без согласования с участниками (с объявлением).</div>
-              <div class="rule"><b>0.8</b> Администрация вправе выносить решения о наказаниях по ситуации.</div>
-            </div>
-          </details>
-
-          <details>
-            <summary>2) RolePlay <span class="chev">[+]</span></summary>
-            <div class="body">
-              <div class="rule"><b>2.1</b> Запрещено <b>NonRP</b> — неролевое поведение, ломающее логику лора.</div>
-              <div class="rule"><b>2.2</b> Запрещён <b>PowerGaming</b> — превышение возможностей персонажа.</div>
-              <div class="rule"><b>2.3</b> Запрещено игнорировать <b>FearRP</b> — страх обязателен при угрозе жизни/тяжких последствий.</div>
-              <div class="rule"><b>2.4</b> Запрещён <b>RDM</b> — убийство без веских причин.</div>
-              <div class="rule"><b>2.5</b> Запрещён <b>RevengeKill</b> — убийство из мести без новой RP-причины.</div>
-              <div class="rule"><b>2.6</b> Запрещён <b>RepeatKill</b> — повторное убийство подряд без причины.</div>
-              <div class="rule"><b>2.7</b> Запрещён <b>MetaGaming</b> — использование OOC-информации в RP.</div>
-              <div class="rule"><b>2.8</b> ГМ не обязан отвечать моментально.</div>
-              <div class="rule"><b>2.9</b> Не переносите личную вражду в RP и наоборот.</div>
-              <div class="rule"><b>2.10</b> Нельзя иметь больше двух персонажей (формат ника: <code>Имя №1 | Имя №2</code>).</div>
-              <div class="rule"><b>2.11</b> Никнейм должен содержать имя персонажа.</div>
-              <div class="rule"><b>2.12</b> Соблюдайте правило хода (сообщения чередуются).</div>
-              <div class="rule"><b>2.13</b> Переходы между локациями — при знании пути/сопровождении/логике.</div>
-              <div class="rule"><b>2.14</b> При переходе оставляйте ссылку на локацию через <code>#канал</code>.</div>
-              <div class="rule"><b>2.15</b> Ветки каноничны только со следящим ГМ (пинг обязателен).</div>
-              <div class="rule"><b>2.16</b> Запрещён оффтоп не по теме канала.</div>
-              <div class="rule"><b>2.17</b> Запрещено вести 2+ своих персонажей в одной сцене (без разрешения ГМ).</div>
-              <div class="rule"><b>2.18</b> Шаблон RP-поста обязателен (речь/действие/описание/мысли/OOC).</div>
-            </div>
-          </details>
-
-          <details>
-            <summary>3) Общение <span class="chev">[+]</span></summary>
-            <div class="body">
-              <div class="rule"><b>3.1</b> Запрещено неадекватное поведение.</div>
-              <div class="rule"><b>3.2</b> Ненормативная лексика — умеренно.</div>
-              <div class="rule"><b>3.3</b> Запрещён спам.</div>
-              <div class="rule"><b>3.4</b> Запрещены оскорбления.</div>
-              <div class="rule"><b>3.5</b> Запрещены угрозы IRL, доксинг, сватинг.</div>
-              <div class="rule"><b>3.6</b> Запрещена несанкционированная реклама.</div>
-              <div class="rule"><b>3.7</b> Запрещены провокации на нарушение правил.</div>
-              <div class="rule"><b>3.8</b> Запрещён спам в голосовых каналах.</div>
-              <div class="rule"><b>3.9</b> 18+ и шок-контент — только в предназначенных каналах (если разрешено).</div>
-              <div class="rule"><b>3.10</b> Запрещена дискриминация.</div>
-              <div class="rule"><b>3.11</b> Запрещена пропаганда фашизма/нацизма.</div>
-            </div>
-          </details>
-        </section>
-
-        <!-- GM RULES -->
-        <section id="gm" class="card">
-          <h2>Правила ГМ</h2>
-          <div class="rule"><b>5.1</b> ГМ запрещено отыгрывать для самих себя.</div>
-          <div class="rule"><b>5.2</b> При невозможности вести — предупредить старших КП и участников ветки.</div>
-          <div class="rule"><b>5.3</b> Нельзя вести персонажа другого ГМ (исключения: разрешение ведущего / ГлГМ после 12 часов без ответа).</div>
-          <div class="rule"><b>5.4</b> Личное отношение не влияет на отыгрыш.</div>
-          <div class="rule"><b>5.5</b> Персонаж ГМ не участвует в сцене, которую он ведёт; назначается другой ГМ.</div>
-          <div class="rule"><b>5.6</b> Глобальные события/артефакты/сильные НПС — только с согласования ГлГМ.</div>
-          <div class="rule"><b>5.7</b> ГМ следит за соответствием экипировки/навыков/знаний/характера.</div>
-          <div class="rule"><b>5.8</b> Перманентная смерть персонажа — только с согласованием ГлГМ.</div>
-        </section>
-
-        <!-- ADM RULES -->
-        <section id="adm" class="card">
-          <h2>Правила АДМ</h2>
-          <div class="rule"><b>6.1</b> Запрещено злоупотреблять полномочиями.</div>
-          <div class="rule"><b>6.2</b> Нельзя наказывать за то, чего нет в правилах (исключение: ГлАДМ).</div>
-          <div class="rule"><b>6.3</b> Запрещено хамство и неуважение к игрокам.</div>
-          <div class="rule"><b>6.4</b> Запрещено игнорировать явные нарушения.</div>
-          <div class="rule"><b>6.5</b> Наказание должно соответствовать тяжести нарушения (исключение: ГлАДМ).</div>
-        </section>
-
-        <footer>
-          Сделано под Discord-сервер «Лабиринт». Можно хостить как статическую страницу (GitHub Pages / Netlify).
-        </footer>
-      </main>
-    </div>
   </div>
 
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script>
-    // Simple in-page search with highlighting.
-    // - highlights matches in #content
-    // - removes old highlights on new query / clear
-    const input = document.getElementById('q');
-    const clearBtn = document.getElementById('clear');
-    const root = document.getElementById('content');
+    // =============================
+    // 1) ВСТАВЬ ДАННЫЕ SUPABASE:
+    // Supabase -> Settings -> API
+    // =============================
+    const SUPABASE_URL = "https://iutufwipjencpczsafgj.supabase.co";
+    const SUPABASE_ANON_KEY = "PASTE_YOUR_ANON_KEY_HERE";
 
-    function escapeRegExp(str){ return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); }
+    const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-    function unwrapMarks(node){
-      const marks = node.querySelectorAll('mark');
-      marks.forEach(m => {
-        const parent = m.parentNode;
-        parent.replaceChild(document.createTextNode(m.textContent), m);
-        parent.normalize();
-      });
+    function setMsg(text, tone="muted"){
+      const el = document.getElementById("authMsg");
+      if(!el) return;
+      el.style.color = tone==="bad" ? "var(--bad)" : (tone==="good" ? "var(--good)" : "var(--muted)");
+      el.textContent = text;
     }
 
-    function highlight(query){
-      unwrapMarks(root);
-      if(!query.trim()) return;
+    function openAuth(){ document.getElementById("authModal").style.display="block"; setMsg(""); }
+    function closeAuth(){ document.getElementById("authModal").style.display="none"; }
 
-      const q = query.trim();
-      const re = new RegExp(escapeRegExp(q), 'gi');
-
-      // Walk text nodes only
-      const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
-        acceptNode: (n) => {
-          if(!n.nodeValue || !n.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
-          const parent = n.parentElement;
-          if(!parent) return NodeFilter.FILTER_REJECT;
-          // skip scripts/styles and inputs
-          const tag = parent.tagName;
-          if(tag === 'SCRIPT' || tag === 'STYLE' || tag === 'INPUT' || tag === 'TEXTAREA') return NodeFilter.FILTER_REJECT;
-          // don't re-highlight inside mark
-          if(parent.closest('mark')) return NodeFilter.FILTER_REJECT;
-          return NodeFilter.FILTER_ACCEPT;
+    async function signInGoogle(){
+      const { error } = await supabase.auth.signInWithOAuth({
+        provider: "google",
+        options: {
+          redirectTo: location.origin + location.pathname.replace(/[^\/]*$/, "") + "index.html"
         }
       });
-
-      const nodes = [];
-      while(walker.nextNode()) nodes.push(walker.currentNode);
-
-      nodes.forEach(textNode => {
-        const text = textNode.nodeValue;
-        if(!re.test(text)) return;
-
-        const frag = document.createDocumentFragment();
-        let lastIndex = 0;
-        text.replace(re, (match, offset) => {
-          // text before match
-          if(offset > lastIndex){
-            frag.appendChild(document.createTextNode(text.slice(lastIndex, offset)));
-          }
-          // match
-          const mark = document.createElement('mark');
-          mark.textContent = match;
-          frag.appendChild(mark);
-          lastIndex = offset + match.length;
-          return match;
-        });
-
-        // remaining
-        if(lastIndex < text.length){
-          frag.appendChild(document.createTextNode(text.slice(lastIndex)));
-        }
-
-        textNode.parentNode.replaceChild(frag, textNode);
-      });
-
-      // expand details that contain matches
-      root.querySelectorAll('details').forEach(d => {
-        if(d.querySelector('mark')) d.open = true;
-      });
-
-      // scroll to first match
-      const first = root.querySelector('mark');
-      if(first) first.scrollIntoView({behavior:'smooth', block:'center'});
+      if(error) setMsg(error.message, "bad");
     }
 
-    input.addEventListener('input', () => highlight(input.value));
-    clearBtn.addEventListener('click', () => { input.value=''; unwrapMarks(root); });
+    async function emailSignUp(){
+      const email = document.getElementById("email").value.trim();
+      const password = document.getElementById("password").value;
+      if(!email) return setMsg("Введи email.", "bad");
+      const { error } = await supabase.auth.signUp({ email, password: password || undefined });
+      if(error) return setMsg(error.message, "bad");
+      setMsg("Регистрация выполнена. Если включено подтверждение — проверь почту.", "good");
+    }
 
-    // nice chevron toggle text
-    document.querySelectorAll('details summary').forEach(s => {
-      const d = s.parentElement;
-      const chev = s.querySelector('.chev');
-      if(!chev) return;
-      const update = () => chev.textContent = d.open ? '[-]' : '[+]';
-      update();
-      d.addEventListener('toggle', update);
-    });
+    async function emailSignIn(){
+      const email = document.getElementById("email").value.trim();
+      const password = document.getElementById("password").value;
+      if(!email || !password) return setMsg("Нужны email и пароль.", "bad");
+      const { error } = await supabase.auth.signInWithPassword({ email, password });
+      if(error) return setMsg(error.message, "bad");
+      setMsg("Вход выполнен.", "good");
+      closeAuth();
+    }
+
+    async function sendMagicLink(){
+      const email = document.getElementById("email").value.trim();
+      if(!email) return setMsg("Введи email.", "bad");
+      const { error } = await supabase.auth.signInWithOtp({
+        email,
+        options: { emailRedirectTo: location.href }
+      });
+      if(error) return setMsg(error.message, "bad");
+      setMsg("Отправил Magic Link. Проверь почту (и спам).", "good");
+    }
+
+    async function signOut(){
+      await supabase.auth.signOut();
+      location.reload();
+    }
+
+    function setAuthUI(session){
+      const dot = document.getElementById("dot");
+      const authText = document.getElementById("authText");
+      const btnLogin = document.getElementById("btnLogin");
+      const btnGoogle = document.getElementById("btnGoogle");
+      const btnLogout = document.getElementById("btnLogout");
+
+      if(session?.user){
+        dot.classList.add("on");
+        authText.textContent = session.user.email || "Вход выполнен";
+        btnLogin.style.display = "none";
+        btnGoogle.style.display = "none";
+        btnLogout.style.display = "inline-block";
+      } else {
+        dot.classList.remove("on");
+        authText.textContent = "Не вошёл";
+        btnLogin.style.display = "inline-block";
+        btnGoogle.style.display = "inline-block";
+        btnLogout.style.display = "none";
+      }
+    }
+
+    // on load
+    supabase.auth.getSession().then(({data}) => setAuthUI(data.session));
+    supabase.auth.onAuthStateChange((_event, session) => setAuthUI(session));
   </script>
 </body>
 </html>
