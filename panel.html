@@ -1,421 +1,132 @@
 <!doctype html>
-<html lang="ru">
+<html lang="ru" data-theme="dark">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Лабиринт — Панель КП</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
-  <style>
-    :root{
-      --bg:#070A10;--text:#EAF0FF;--muted:#A9B4D6;--line:rgba(255,255,255,.08);
-      --accent:#7AA2F7;--accent2:#BB9AF7;--good:#9ECE6A;--bad:#F7768E;--warn:#E0AF68;
-      --radius:18px;--shadow:0 10px 40px rgba(0,0,0,.45);
-    }
-    *{box-sizing:border-box}
-    body{margin:0;font-family:Inter,system-ui;color:var(--text);
-      background: radial-gradient(1200px 700px at 20% -10%, rgba(187,154,247,.18), transparent 60%),
-                  radial-gradient(900px 600px at 90% 10%, rgba(122,162,247,.18), transparent 55%),
-                  radial-gradient(900px 600px at 50% 120%, rgba(158,206,106,.10), transparent 55%),
-                  var(--bg);min-height:100vh;}
-    a{color:inherit;text-decoration:none}
-    .wrap{max-width:1100px;margin:0 auto;padding:22px}
-    .nav{position:sticky;top:0;z-index:10;backdrop-filter:blur(10px);
-      background:linear-gradient(to bottom, rgba(7,10,16,.86), rgba(7,10,16,.55));border-bottom:1px solid var(--line);}
-    .nav-inner{display:flex;gap:14px;align-items:center;justify-content:space-between;max-width:1100px;margin:0 auto;padding:14px 22px;}
-    .brand{display:flex;align-items:center;gap:12px;font-weight:800;letter-spacing:.6px}
-    .logo{width:34px;height:34px;border-radius:12px;background:radial-gradient(circle at 30% 30%, rgba(187,154,247,.8), rgba(122,162,247,.5) 45%, rgba(0,0,0,.2) 70%);
-      box-shadow:0 0 0 1px var(--line), 0 10px 30px rgba(122,162,247,.15);}
-    .links{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
-    .pill{padding:10px 12px;border-radius:999px;border:1px solid var(--line);background:rgba(12,18,32,.55);color:var(--muted);transition:.2s;font-weight:600;font-size:13px}
-    .pill:hover{transform:translateY(-1px);border-color:rgba(122,162,247,.35);color:var(--text)}
-    .pill.active{color:var(--text);border-color:rgba(122,162,247,.55);box-shadow:0 0 0 3px rgba(122,162,247,.12)}
-    .box{border:1px solid var(--line);background:linear-gradient(180deg, rgba(12,18,32,.75), rgba(10,15,28,.55));border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden}
-    .head{padding:18px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;align-items:flex-start}
-    h1{margin:0;font-size:22px}
-    .sub{margin:8px 0 0;color:var(--muted);line-height:1.6;font-size:13px}
-    .badge{display:inline-flex;align-items:center;gap:8px;padding:8px 10px;border-radius:999px;border:1px solid var(--line);background:rgba(12,18,32,.55);color:var(--muted);font-size:12px;max-width:420px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-    .dot{width:8px;height:8px;border-radius:99px;background:var(--bad);box-shadow:0 0 18px rgba(247,118,142,.45)}
-    .dot.on{background:var(--good);box-shadow:0 0 18px rgba(158,206,106,.45)}
-    .btn{border:1px solid var(--line);background:rgba(12,18,32,.7);color:var(--text);padding:10px 12px;border-radius:12px;cursor:pointer;font-weight:800;font-size:13px;transition:.2s}
-    .btn:hover{transform:translateY(-1px);border-color:rgba(187,154,247,.5)}
-    .btn.primary{background:linear-gradient(90deg, rgba(122,162,247,.85), rgba(187,154,247,.85));border-color:transparent;color:#08101e}
-    .content{padding:18px;display:grid;gap:14px}
-    .sec{border:1px solid var(--line);border-radius:16px;background:rgba(7,10,16,.35);padding:14px}
-    .sec h2{margin:0 0 10px;font-size:14px}
-    .grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-    @media (max-width:900px){.grid{grid-template-columns:1fr}}
-    input, textarea, select{
-      width:100%;
-      padding:12px;border-radius:12px;border:1px solid var(--line);
-      background:rgba(12,18,32,.55);color:var(--text);outline:none;
-      font-family:inherit;
-    }
-    textarea{min-height:110px;resize:vertical}
-    table{
-      width:100%;
-      border-collapse:separate;
-      border-spacing:0;
-      overflow:hidden;
-      border:1px solid var(--line);
-      border-radius:16px;
-      background:rgba(12,18,32,.35);
-    }
-    th,td{padding:10px 10px;border-bottom:1px solid var(--line);font-size:12.5px;vertical-align:top}
-    th{color:rgba(233,240,255,.85);text-align:left;background:rgba(7,10,16,.35)}
-    tr:last-child td{border-bottom:none}
-    .small{color:var(--muted);font-size:12px;line-height:1.55}
-    .err{color:var(--bad)}
-    .ok{color:var(--good)}
-    code{background:rgba(12,18,32,.75);border:1px solid var(--line);padding:2px 6px;border-radius:10px;color:rgba(233,240,255,.9)}
-    .hidden{display:none !important}
-  </style>
+  <title>Лабиринт — Панель</title>
+  <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
-<header class="nav">
-  <div class="nav-inner">
-    <div class="brand">
-      <div class="logo"></div>
-      <div>
-        <div>ЛАБИРИНТ</div>
-        <div style="font-size:12px;color:var(--muted);font-weight:600;letter-spacing:0">панель КП</div>
+
+<div class="topbar">
+  <div class="container">
+    <div class="nav">
+      <a class="brand" href="index.html"><span class="brand-badge"></span><span>Лабиринт</span></a>
+
+      <div class="nav-links">
+        <a class="pill" data-nav href="index.html">Главная</a>
+        <a class="pill" data-nav href="rules.html">Правила</a>
+        <a class="pill" data-nav href="lore.html">Лор</a>
+        <a class="pill" data-nav href="magic.html">Магия</a>
+        <a class="pill" data-nav href="team.html">Команда</a>
+        <a class="pill" data-nav href="panel.html">Панель</a>
+      </div>
+
+      <div class="actions">
+        <select class="select" id="theme-select">
+          <option value="dark">Тёмная</option><option value="light">Светлая</option><option value="purple">Фиолетовая</option>
+          <option value="yellow">Жёлтая</option><option value="green">Зелёная</option><option value="red">Красная</option>
+          <option value="pink">Розовая</option><option value="blue">Синяя</option><option value="deepblue">Тёмно-синяя</option>
+        </select>
+        <span class="small" id="auth-status">Загрузка…</span>
+        <button class="btn" id="btn-login">Войти</button>
+        <button class="btn primary" id="btn-google">Google</button>
+        <button class="btn danger" id="btn-logout" style="display:none;">Выйти</button>
       </div>
     </div>
-    <nav class="links">
-      <a class="pill" href="index.html">Главная</a>
-      <a class="pill" href="rules.html">Правила</a>
-      <a class="pill" href="lore.html">Лор</a>
-      <a class="pill" href="magic.html">Магия</a>
-      <a class="pill" href="team.html">Команда</a>
-      <a class="pill active" href="panel.html">Панель КП</a>
-    </nav>
   </div>
-</header>
+</div>
 
-<main class="wrap">
-  <section class="box">
-    <div class="head">
-      <div>
-        <h1>🛠️ Панель КП</h1>
-        <div class="sub">Доступ только для <b>owner / curator / gm / mod</b>. Роли берутся из таблицы <code>profiles</code>.</div>
+<div class="container">
+  <section class="hero">
+    <h1>Панель</h1>
+    <p>
+      Здесь будут анкеты персонажей и доступ КП к управлению ролями. Для работы требуется авторизация.
+      Если вход не работает — проверь Supabase Providers и Redirect URLs.
+    </p>
+  </section>
+
+  <div class="grid">
+    <section class="card">
+      <h2>Вход</h2>
+      <p>Google или Email (magic-link). Если введёшь email — кнопка «Войти» отправит ссылку на почту.</p>
+      <div style="margin-top:10px;">
+        <input id="email" class="input" placeholder="Email для входа (опционально)">
       </div>
-      <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;justify-content:flex-end">
-        <span class="badge"><span class="dot" id="dot"></span><span id="authText">Проверяю сессию...</span></span>
-        <button class="btn" id="btnGoogle" onclick="signInGoogle()">Google</button>
-        <button class="btn" id="btnLogout" onclick="signOut()" style="display:none">Выйти</button>
+      <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:10px;">
+        <button class="btn primary" id="btn-email">Войти по Email</button>
+        <button class="btn" id="btn-google">Google</button>
       </div>
-    </div>
+      <p class="small" style="margin-top:10px;">
+        После входа обнови страницу, если не перекинуло автоматически.
+      </p>
+    </section>
 
-    <div class="content">
-      <div class="sec" id="blocked">
-        <h2>⛔ Доступ ограничен</h2>
-        <div class="small">
-          1) Войди через Google. <br/>
-          2) Затем в Supabase назначь роль в таблице <code>profiles</code>. <br/>
-          3) После обнови страницу.
-        </div>
-        <div class="small" style="margin-top:10px">
-          <b>Подсказка по структуре таблиц:</b><br/>
-          <code>profiles</code>: id (uuid, = auth.users.id), role (text), display_name (text), discord_id (text).<br/>
-          <code>characters</code>: id (uuid), owner_id (uuid), name (text), imprint (text), faction (text), bio (text), approved (bool), created_at (timestamptz).
-        </div>
+    <aside class="card">
+      <h2>Статус доступа</h2>
+      <div class="notice">
+        <b>Совет:</b> доступ к функциям выдаётся через роли в базе Supabase (таблица user_roles).
       </div>
+      <hr>
+      <p class="small">
+        В будущем тут появится: управление ролями (owner/curator/admin/gm/mod/cp) и модерация анкет.
+      </p>
+    </aside>
+  </div>
 
-      <div class="grid hidden" id="panelGrid">
-        <div class="sec">
-          <h2>🧩 Твоя роль</h2>
-          <div class="small">Пользователь: <span id="meEmail">—</span></div>
-          <div class="small">Role: <b id="meRole">—</b></div>
-          <div class="small">ID: <span id="meId">—</span></div>
-          <div id="msg" class="small" style="margin-top:10px"></div>
+  <section class="card">
+    <h2>Анкеты персонажей (UI-каркас)</h2>
+    <div class="acc">
+      <details open>
+        <summary>Создать / отправить анкету <span class="tag glow">скоро</span></summary>
+        <div class="content">
+          <div class="form-row">
+            <div>
+              <div class="small">Имя персонажа</div>
+              <input class="input" placeholder="Напр. Эйко">
+            </div>
+            <div>
+              <div class="small">Отпечаток</div>
+              <input class="input" placeholder="Плоть / Власть / ...">
+            </div>
+          </div>
+          <div style="margin-top:10px;">
+            <div class="small">Биография / описание</div>
+            <textarea class="input" rows="5" placeholder="Коротко: кто, откуда, что хочет в Лабиринте"></textarea>
+          </div>
+          <div style="margin-top:10px; display:flex; gap:10px; flex-wrap:wrap;">
+            <button class="btn primary" disabled>Сохранить (скоро)</button>
+            <button class="btn" disabled>Отправить на проверку (скоро)</button>
+          </div>
+          <p class="small" style="margin-top:10px;">Чтобы это заработало, я подключу CRUD к таблице characters (после твоего SQL и RLS).</p>
         </div>
-
-        <div class="sec">
-          <h2>👤 Добавить персонажа</h2>
-          <div class="small">Записи сохраняются в таблицу <code>characters</code>. По умолчанию <code>approved=false</code>.</div>
-          <div style="display:grid;gap:10px;margin-top:10px">
-            <input id="c_name" placeholder="Имя персонажа" />
-            <select id="c_imprint">
-              <option value="">Отпечаток (выбери)</option>
-              <option>ПЛОТЬ</option>
-              <option>ВЛАСТЬ</option>
-              <option>СВЯЗЬ</option>
-              <option>БЕГСТВО</option>
-              <option>ЗНАНИЕ</option>
-              <option>ИСКАЖЕНИЕ</option>
-              <option>СОЗИДАНИЕ/РАЗРУШЕНИЕ</option>
-              <option>ПАМЯТЬ/ЗАБВЕНИЕ</option>
-            </select>
-            <input id="c_faction" placeholder="Фракция (например: Стражи / Гедонисты / Бродяги...)" />
-            <textarea id="c_bio" placeholder="Короткая анкета/описание"></textarea>
-            <button class="btn primary" onclick="createCharacter()">Сохранить</button>
+      </details>
+      <details>
+        <summary>Список моих анкет <span class="tag">скоро</span></summary>
+        <div class="content">
+          Здесь будет таблица ваших персонажей и статусы: draft / submitted / approved / archived.
+        </div>
+      </details>
+      <details>
+        <summary>Инструменты КП (роли/модерация) <span class="tag glow">только staff</span></summary>
+        <div class="content">
+          Здесь появятся кнопки:
+          <ul>
+            <li>назначить роль пользователю</li>
+            <li>показать всех пользователей</li>
+            <li>одобрить/архивировать анкету</li>
+          </ul>
+          <div class="notice warn" style="margin-top:10px;">
+            Важно: для безопасности это делается через RLS + RPC функции (а не напрямую по client-side).
           </div>
         </div>
-      </div>
-
-      <div class="sec hidden" id="charactersSec">
-        <h2>📚 База персонажей</h2>
-        <div class="small">Показываются последние 100 записей (можно улучшить фильтрами позже).</div>
-        <div style="margin:10px 0;display:flex;gap:10px;flex-wrap:wrap">
-          <button class="btn" onclick="loadCharacters()">Обновить список</button>
-        </div>
-        <div style="overflow:auto">
-          <table>
-            <thead>
-              <tr>
-                <th>Имя</th>
-                <th>Отпечаток</th>
-                <th>Фракция</th>
-                <th>Approved</th>
-                <th>Описание</th>
-                <th>Действия</th>
-              </tr>
-            </thead>
-            <tbody id="charsBody">
-              <tr><td colspan="6" class="small">Загрузка...</td></tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-
-      <div class="sec hidden" id="rolesHint">
-        <h2>🔐 Как выдавать роли</h2>
-        <div class="small">
-          Роли выдаются в таблице <code>profiles</code> (колонка <code>role</code>).<br/>
-          Примеры: <code>owner</code>, <code>curator</code>, <code>gm</code>, <code>mod</code>, <code>user</code>.
-        </div>
-        <div class="small" style="margin-top:10px">
-          Для твоей команды можно заранее создать записи в <code>profiles</code> с discord_id:
-          <ul>
-            <li>Lever — 921811576477089792 (role: owner)</li>
-            <li>Neonfox — 418014828418957314 (role: curator)</li>
-            <li>Lancelot — 734774113482178580 (role: curator)</li>
-            <li>Noks — 862677002409213974 (role: curator)</li>
-          </ul>
-          Но привязка “discord_id ↔ аккаунт” уже требует отдельной логики (позже добавим).
-        </div>
-      </div>
-
+      </details>
     </div>
   </section>
-</main>
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script>
-  // =============================
-  // ВСТАВЬ ДАННЫЕ SUPABASE
-  // =============================
-  const SUPABASE_URL = "https://iutufwipjencpczsafgj.supabase.co";
-  const SUPABASE_ANON_KEY = "PASTE_YOUR_ANON_KEY_HERE";
+  <div class="footer">Панель развивается. Если хочешь — следующим шагом подключу реальную БД-логику к Supabase.</div>
+</div>
 
-  const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-
-  const allowedRoles = new Set(["owner","curator","gm","mod"]);
-
-  function setMsg(text, type="muted"){
-    const el = document.getElementById("msg");
-    el.className = "small " + (type==="ok" ? "ok" : (type==="err" ? "err" : ""));
-    el.textContent = text;
-  }
-
-  async function signInGoogle(){
-    const { error } = await supabase.auth.signInWithOAuth({
-      provider: "google",
-      options: { redirectTo: location.href }
-    });
-    if(error) alert(error.message);
-  }
-
-  async function signOut(){
-    await supabase.auth.signOut();
-    location.reload();
-  }
-
-  function setAuthUI(session){
-    const dot = document.getElementById("dot");
-    const authText = document.getElementById("authText");
-    const btnGoogle = document.getElementById("btnGoogle");
-    const btnLogout = document.getElementById("btnLogout");
-
-    if(session?.user){
-      dot.classList.add("on");
-      authText.textContent = session.user.email || "Вход выполнен";
-      btnGoogle.style.display = "none";
-      btnLogout.style.display = "inline-block";
-    } else {
-      dot.classList.remove("on");
-      authText.textContent = "Не вошёл";
-      btnGoogle.style.display = "inline-block";
-      btnLogout.style.display = "none";
-    }
-  }
-
-  function showPanel(on){
-    document.getElementById("blocked").classList.toggle("hidden", on);
-    document.getElementById("panelGrid").classList.toggle("hidden", !on);
-    document.getElementById("charactersSec").classList.toggle("hidden", !on);
-    document.getElementById("rolesHint").classList.toggle("hidden", !on);
-  }
-
-  async function getMyRole(userId){
-    // profiles.id должен совпадать с auth.users.id
-    const { data, error } = await supabase
-      .from("profiles")
-      .select("role, display_name, discord_id")
-      .eq("id", userId)
-      .maybeSingle();
-    if(error) throw error;
-    return data?.role || "user";
-  }
-
-  async function ensureProfile(user){
-    // на случай, если профиля нет — создаём базовую запись
-    const { data: existing } = await supabase
-      .from("profiles")
-      .select("id")
-      .eq("id", user.id)
-      .maybeSingle();
-
-    if(!existing){
-      await supabase.from("profiles").insert({
-        id: user.id,
-        role: "user",
-        display_name: user.user_metadata?.full_name || user.email || "User",
-        discord_id: null
-      });
-    }
-  }
-
-  async function bootstrap(){
-    const { data } = await supabase.auth.getSession();
-    const session = data.session;
-    setAuthUI(session);
-
-    if(!session?.user){
-      showPanel(false);
-      return;
-    }
-
-    // профиль
-    await ensureProfile(session.user);
-
-    // роль
-    let role = "user";
-    try{
-      role = await getMyRole(session.user.id);
-    }catch(e){
-      console.error(e);
-      setMsg("Ошибка чтения профиля. Проверь таблицу profiles и RLS.", "err");
-      showPanel(false);
-      return;
-    }
-
-    document.getElementById("meEmail").textContent = session.user.email || "—";
-    document.getElementById("meRole").textContent = role;
-    document.getElementById("meId").textContent = session.user.id;
-
-    if(!allowedRoles.has(role)){
-      setMsg("Роль недостаточна. Нужен доступ КП (owner/curator/gm/mod).", "err");
-      showPanel(false);
-      return;
-    }
-
-    setMsg("Доступ разрешён.", "ok");
-    showPanel(true);
-    await loadCharacters();
-  }
-
-  async function loadCharacters(){
-    const body = document.getElementById("charsBody");
-    body.innerHTML = `<tr><td colspan="6" class="small">Загрузка...</td></tr>`;
-
-    const { data, error } = await supabase
-      .from("characters")
-      .select("id,name,imprint,faction,bio,approved,created_at")
-      .order("created_at", { ascending:false })
-      .limit(100);
-
-    if(error){
-      body.innerHTML = `<tr><td colspan="6" class="small err">Ошибка: ${error.message}</td></tr>`;
-      return;
-    }
-    if(!data || data.length===0){
-      body.innerHTML = `<tr><td colspan="6" class="small">Пока пусто.</td></tr>`;
-      return;
-    }
-
-    body.innerHTML = data.map(row => `
-      <tr>
-        <td><b>${escapeHtml(row.name||"")}</b></td>
-        <td>${escapeHtml(row.imprint||"")}</td>
-        <td>${escapeHtml(row.faction||"")}</td>
-        <td>${row.approved ? "✅" : "⏳"}</td>
-        <td class="small">${escapeHtml((row.bio||"").slice(0,220))}${(row.bio||"").length>220 ? "…" : ""}</td>
-        <td>
-          <button class="btn" onclick="toggleApproved('${row.id}', ${row.approved ? "true":"false"})">${row.approved ? "Снять" : "Одобрить"}</button>
-          <button class="btn" onclick="deleteCharacter('${row.id}')">Удалить</button>
-        </td>
-      </tr>
-    `).join("");
-  }
-
-  async function createCharacter(){
-    const { data } = await supabase.auth.getSession();
-    const session = data.session;
-    if(!session?.user) return alert("Сначала войди.");
-
-    const name = document.getElementById("c_name").value.trim();
-    const imprint = document.getElementById("c_imprint").value.trim();
-    const faction = document.getElementById("c_faction").value.trim();
-    const bio = document.getElementById("c_bio").value.trim();
-
-    if(!name) return alert("Имя обязательно.");
-    if(!imprint) return alert("Выбери отпечаток.");
-
-    const { error } = await supabase.from("characters").insert({
-      owner_id: session.user.id,
-      name, imprint, faction: faction||null, bio: bio||null,
-      approved: false
-    });
-    if(error) return alert(error.message);
-
-    document.getElementById("c_name").value = "";
-    document.getElementById("c_imprint").value = "";
-    document.getElementById("c_faction").value = "";
-    document.getElementById("c_bio").value = "";
-    await loadCharacters();
-    setMsg("Персонаж добавлен (ожидает одобрения).", "ok");
-  }
-
-  async function toggleApproved(id, current){
-    const { error } = await supabase
-      .from("characters")
-      .update({ approved: !current })
-      .eq("id", id);
-    if(error) return alert(error.message);
-    await loadCharacters();
-  }
-
-  async function deleteCharacter(id){
-    if(!confirm("Удалить персонажа?")) return;
-    const { error } = await supabase.from("characters").delete().eq("id", id);
-    if(error) return alert(error.message);
-    await loadCharacters();
-  }
-
-  function escapeHtml(s){
-    return (s||"")
-      .replaceAll("&","&amp;")
-      .replaceAll("<","&lt;")
-      .replaceAll(">","&gt;")
-      .replaceAll('"',"&quot;")
-      .replaceAll("'","&#039;");
-  }
-
-  supabase.auth.onAuthStateChange(() => bootstrap());
-  bootstrap();
-</script>
+<script type="module" src="app.js"></script>
 </body>
 </html>

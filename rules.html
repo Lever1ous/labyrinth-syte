@@ -1,186 +1,204 @@
 <!doctype html>
-<html lang="ru">
+<html lang="ru" data-theme="dark">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Лабиринт — Правила</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
-  <style>
-    :root{
-      --bg:#070A10;--panel:#0C1220;--panel2:#0A0F1C;--text:#EAF0FF;--muted:#A9B4D6;
-      --line:rgba(255,255,255,.08);--accent:#7AA2F7;--accent2:#BB9AF7;--good:#9ECE6A;--bad:#F7768E;--warn:#E0AF68;
-      --radius:18px;--shadow:0 10px 40px rgba(0,0,0,.45);
-    }
-    *{box-sizing:border-box} body{margin:0;font-family:Inter,system-ui;color:var(--text);
-      background: radial-gradient(1200px 700px at 20% -10%, rgba(187,154,247,.18), transparent 60%),
-                  radial-gradient(900px 600px at 90% 10%, rgba(122,162,247,.18), transparent 55%),
-                  var(--bg);min-height:100vh;}
-    a{color:inherit;text-decoration:none}
-    .wrap{max-width:1100px;margin:0 auto;padding:22px}
-    .nav{position:sticky;top:0;z-index:10;backdrop-filter:blur(10px);
-      background:linear-gradient(to bottom, rgba(7,10,16,.86), rgba(7,10,16,.55));border-bottom:1px solid var(--line);}
-    .nav-inner{display:flex;gap:14px;align-items:center;justify-content:space-between;max-width:1100px;margin:0 auto;padding:14px 22px;}
-    .brand{display:flex;align-items:center;gap:12px;font-weight:800;letter-spacing:.6px}
-    .logo{width:34px;height:34px;border-radius:12px;background:radial-gradient(circle at 30% 30%, rgba(187,154,247,.8), rgba(122,162,247,.5) 45%, rgba(0,0,0,.2) 70%);
-      box-shadow:0 0 0 1px var(--line), 0 10px 30px rgba(122,162,247,.15);}
-    .links{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
-    .pill{padding:10px 12px;border-radius:999px;border:1px solid var(--line);background:rgba(12,18,32,.55);color:var(--muted);transition:.2s;font-weight:600;font-size:13px}
-    .pill:hover{transform:translateY(-1px);border-color:rgba(122,162,247,.35);color:var(--text)}
-    .pill.active{color:var(--text);border-color:rgba(122,162,247,.55);box-shadow:0 0 0 3px rgba(122,162,247,.12)}
-    .box{border:1px solid var(--line);background:linear-gradient(180deg, rgba(12,18,32,.75), rgba(10,15,28,.55));border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden}
-    .box-h{padding:18px 18px 14px;border-bottom:1px solid var(--line)}
-    .box-h h1{margin:0;font-size:24px}
-    .box-h p{margin:8px 0 0;color:var(--muted);line-height:1.6}
-    .content{padding:18px;display:grid;gap:14px}
-    .sec{border:1px solid var(--line);border-radius:16px;background:rgba(7,10,16,.35);padding:14px}
-    .sec h2{margin:0 0 8px;font-size:14px;letter-spacing:.2px}
-    .sec p{margin:0 0 10px;color:var(--muted);font-size:12.8px;line-height:1.6}
-    ol{margin:0;padding-left:18px}
-    li{margin:8px 0;color:rgba(233,240,255,.9);line-height:1.55}
-    code{background:rgba(12,18,32,.75);border:1px solid var(--line);padding:2px 6px;border-radius:10px;color:rgba(233,240,255,.9)}
-    .note{color:rgba(233,240,255,.65);font-size:12px;line-height:1.55}
-    .tag{display:inline-flex;gap:8px;align-items:center;padding:8px 10px;border:1px solid var(--line);border-radius:999px;background:rgba(12,18,32,.55);color:var(--muted);font-size:12px}
-    @media (max-width:900px){.box-h h1{font-size:20px}}
-  </style>
+  <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
-  <header class="nav">
-    <div class="nav-inner">
-      <div class="brand">
-        <div class="logo"></div>
-        <div>
-          <div>ЛАБИРИНТ</div>
-          <div style="font-size:12px;color:var(--muted);font-weight:600;letter-spacing:0">правила сервера</div>
-        </div>
+
+<!-- TOPBAR -->
+<div class="topbar">
+  <div class="container">
+    <div class="nav">
+      <a class="brand" href="index.html"><span class="brand-badge"></span><span>Лабиринт</span></a>
+
+      <div class="nav-links">
+        <a class="pill" data-nav href="index.html">Главная</a>
+        <a class="pill" data-nav href="rules.html">Правила</a>
+        <a class="pill" data-nav href="lore.html">Лор</a>
+        <a class="pill" data-nav href="magic.html">Магия</a>
+        <a class="pill" data-nav href="team.html">Команда</a>
+        <a class="pill" data-nav href="panel.html">Панель</a>
       </div>
-      <nav class="links">
-        <a class="pill" href="index.html">Главная</a>
-        <a class="pill active" href="rules.html">Правила</a>
-        <a class="pill" href="lore.html">Лор</a>
-        <a class="pill" href="magic.html">Магия</a>
-        <a class="pill" href="team.html">Команда</a>
-        <a class="pill" href="panel.html">Панель КП</a>
-      </nav>
+
+      <div class="actions">
+        <select class="select" id="theme-select">
+          <option value="dark">Тёмная</option><option value="light">Светлая</option><option value="purple">Фиолетовая</option>
+          <option value="yellow">Жёлтая</option><option value="green">Зелёная</option><option value="red">Красная</option>
+          <option value="pink">Розовая</option><option value="blue">Синяя</option><option value="deepblue">Тёмно-синяя</option>
+        </select>
+        <span class="small" id="auth-status">Загрузка…</span>
+        <button class="btn" id="btn-login">Войти</button>
+        <button class="btn primary" id="btn-google">Google</button>
+        <button class="btn danger" id="btn-logout" style="display:none;">Выйти</button>
+      </div>
     </div>
-  </header>
+  </div>
+</div>
 
-  <main class="wrap">
-    <section class="box">
-      <div class="box-h">
-        <h1>📜 Правила Discord-сервера “Лабиринт”</h1>
-        <p>Коротко: уважение, честное RP, безопасность участников. Администрация и КП сохраняют право вмешательства при угрозах и конфликтных ситуациях.</p>
-      </div>
+<div class="container">
+  <section class="hero">
+    <h1>Правила сервера</h1>
+    <p>Коротко: уважение, честный RP, отсутствие абьюза. Ниже — структурированные правила для игроков, ГМ и администрации.</p>
+    <div class="badges">
+      <span class="tag glow">0. Общие</span>
+      <span class="tag">2. RolePlay</span>
+      <span class="tag">3. Общение</span>
+      <span class="tag">5. ГМ</span>
+      <span class="tag">6. Адм</span>
+    </div>
+  </section>
 
-      <div class="content">
-        <div class="sec">
-          <h2>1) Основное</h2>
-          <ol>
-            <li><b>Незнание правил</b> не освобождает от ответственности.</li>
-            <li>Запрещено использовать <b>баги/недочёты</b> сервера, ботов, каналов и механик в своих целях.</li>
-            <li>Запрещено вмешиваться в чужую RP-ветку через спам/комментарии. Исключение: <b>КП</b> и назначенный <b>ГМ</b>.</li>
-            <li>Пинговать <b>КП</b> чаще <b>1 раза в час</b> нельзя (если отдельно не договорились иначе).</li>
-            <li>Запрещено неуважительное отношение к <b>КП/ГМ/АДМ</b> и участникам. Критикуем действия, а не людей.</li>
-            <li><b>ERP</b> запрещён в публичных местах и чужих ветках. Только в специально предназначенных зонах/ветках.</li>
-            <li>КП вправе обновлять правила без согласования с участниками (объявляя изменения).</li>
-            <li>Администрация вправе принимать решения по наказаниям по ситуации (особенно при угрозах/доксинге/рейдах).</li>
-          </ol>
-          <div class="note">Рекомендация: спорные моменты решайте в ЛС с ГМ/КП. Скриньте конфликты — это ускорит разбор.</div>
+  <section class="card">
+    <h2>Термины</h2>
+    <ul>
+      <li><span class="kbd">КП</span> — команда проекта (все должности, развитие сервера).</li>
+      <li><span class="kbd">ГМ</span> — GameMaster, ведущий RP и события.</li>
+      <li><span class="kbd">АДМ</span> — администрация, следит за правилами и настройкой.</li>
+      <li><span class="kbd">ГлАДМ</span> — главный администратор.</li>
+      <li><span class="kbd">ГлГМ</span> — главный гейммастер, отвечает за лор.</li>
+    </ul>
+  </section>
+
+  <section class="card">
+    <h2>0. Основное</h2>
+    <div class="acc">
+      <details open>
+        <summary>0.1–0.8 Общие нормы <span class="tag">база</span></summary>
+        <div class="content">
+          <ul>
+            <li><b>0.1</b> Незнание правил не освобождает от ответственности.</li>
+            <li><b>0.2</b> Запрещён абьюз багов/недочётов сервера.</li>
+            <li><b>0.3</b> Нельзя вмешиваться в чужую RP-ветку спамом/комментариями (исключение: КП).</li>
+            <li><b>0.4</b> Нельзя пинговать КП чаще 1 раза в час (если не согласовано иначе).</li>
+            <li><b>0.5</b> Запрещено неуважительное отношение к КП.</li>
+            <li><b>0.6</b> ERP запрещено в публичных местах и чужих ветках.</li>
+            <li><b>0.7</b> КП вправе изменять правила без согласования.</li>
+            <li><b>0.8</b> Администрация может выносить решения по ситуации (в рамках здравого смысла и правил).</li>
+          </ul>
+          <div class="notice warn" style="margin-top:10px;">
+            Любые угрозы в реальной жизни, доксинг/сватинг — моментальный жёсткий бан.
+          </div>
         </div>
+      </details>
+    </div>
+  </section>
 
-        <div class="sec">
-          <h2>2) RolePlay</h2>
-          <ol>
-            <li><b>NonRP</b> запрещён: неролевое поведение и отыгрыши, ломающие лор/логику мира.</li>
-            <li><b>Power Gaming</b> запрещён: превышение возможностей персонажа.</li>
-            <li><b>FearRP</b> обязательно: страх и осторожность при угрозе жизни/калечащей опасности.</li>
-            <li><b>RDM</b> запрещён: убийство без веской RP-причины.</li>
-            <li><b>RevengeKill</b> запрещён: нельзя убивать из мести “за моего персонажа”. Нужна логичная RP-причина.</li>
-            <li><b>RepeatKill</b> запрещён: намеренное убийство одного и того же персонажа более 1 раза подряд без адекватной причины.</li>
-            <li><b>MetaGaming</b> запрещён: использование информации, полученной вне RP.</li>
-            <li>ГМ не обязан отвечать мгновенно. Учитывайте нагрузку и время.</li>
-            <li>Личная вражда не переносится в RP и наоборот.</li>
-            <li>Нельзя иметь больше <b>2 персонажей</b>. При 2 персонажах ник: <code>Имя №1 | Имя №2</code>.</li>
-            <li>Никнейм в Discord должен содержать имя персонажа.</li>
-            <li>Соблюдайте <b>очередность хода</b>: не пишите два сообщения подряд без ответа другого игрока (кроме оговоренных случаев/логов).</li>
-            <li>Переходы между локациями: нужен путь/знание/проводник. Между зданиями в городе — свободно, если открыто.</li>
-            <li>При переходе оставляйте ссылку на локацию через <code>#канал</code> или ссылку на ветку.</li>
-            <li>RP-ветки считаются каноничными только при наличии следящего <b>ГМ</b> в ветке. ГМ пингуем обязательно.</li>
-            <li><b>Offtop</b> запрещён: сообщения не по теме канала.</li>
-            <li>Запрещено отыгрывать <b>двух и более своих персонажей</b> в одной локации в кооперации/содействии.</li>
-            <li>Шаблон RP-сообщений обязателен.</li>
-          </ol>
-
-          <div class="tag" style="margin-top:10px">Шаблон: <b>— речь</b> • <b>**действия**</b> • <b><i>описание окружения</i></b> • <b>"мысли"</b> • <b>(( OOC ))</b></div>
+  <section class="card">
+    <h2>2. RolePlay</h2>
+    <div class="acc">
+      <details>
+        <summary>2.1–2.9 Логика RP <span class="tag">RP-чистота</span></summary>
+        <div class="content">
+          <ul>
+            <li><b>2.1</b> Запрещён NonRP.</li>
+            <li><b>2.2</b> Запрещён PowerGaming (превышение возможностей).</li>
+            <li><b>2.3</b> FearRP обязателен: страх перед угрозой жизни отыгрывается.</li>
+            <li><b>2.4</b> RDM запрещён: убийство без причины.</li>
+            <li><b>2.5</b> RevengeKill запрещён: нельзя убивать «из мести» без RP-причины.</li>
+            <li><b>2.6</b> RepeatKill запрещён: нельзя «фармить» убийства одного персонажа.</li>
+            <li><b>2.7</b> MetaGaming запрещён: внеигровая инфа не используется в игре.</li>
+            <li><b>2.8</b> ГМ не обязан отвечать моментально.</li>
+            <li><b>2.9</b> Личное ≠ RP. Не переносить конфликты в реальность и обратно.</li>
+          </ul>
         </div>
+      </details>
 
-        <div class="sec">
-          <h2>3) Общение</h2>
-          <ol>
-            <li>Запрещено общее неадекватное поведение (токсичность, систематические провокации).</li>
-            <li>Ненормативная лексика допустима умеренно, без травли и оскорблений.</li>
-            <li>Спам запрещён: массовая отправка одинаковых/похожих сообщений.</li>
-            <li>Оскорбления участников запрещены.</li>
-            <li>Запрещены угрозы расправой в реальной жизни, доксинг и сватинг.</li>
-            <li>Запрещена несанкционированная реклама (в ЛС и каналах).</li>
-            <li>Запрещено провоцировать на нарушение правил.</li>
-            <li>Спам в голосовых запрещён.</li>
-            <li>18+/шок/неприятный контент — только в предназначенных каналах.</li>
-            <li>Дискриминация по религии/политике/этничности/расе/культуре запрещена.</li>
-            <li>Пропаганда фашизма/нацизма запрещена.</li>
-          </ol>
+      <details>
+        <summary>2.10–2.18 Персонажи, ходы, оформление <span class="tag">формат</span></summary>
+        <div class="content">
+          <ul>
+            <li><b>2.10</b> Максимум 2 персонажа. Ник: «Имя №1 | Имя №2».</li>
+            <li><b>2.11</b> Никнейм должен содержать имя персонажа.</li>
+            <li><b>2.12</b> Соблюдать очередность хода (сообщения чередуются).</li>
+            <li><b>2.13</b> Переходы — при знании пути; между открытыми зданиями — свободно.</li>
+            <li><b>2.14</b> Переход отмечать ссылкой/плашкой: начиная с <span class="kbd">#</span>.</li>
+            <li><b>2.15</b> Ветки без следящего ГМ не каноничны. Пинг ГМ обязателен.</li>
+            <li><b>2.16</b> Offtop запрещён в RP-каналах.</li>
+            <li><b>2.17</b> Нельзя отыгрывать 2+ своих персонажей в одной локации с кооперацией.</li>
+            <li><b>2.18</b> Шаблон сообщений:
+              <div style="margin-top:8px;">
+                <div class="kbd">— Речь</div>
+                <div class="kbd">**Действия**</div>
+                <div class="kbd">*Окружение*</div>
+                <div class="kbd">"Мысли"</div>
+                <div class="kbd">(( NonRP пояснения</div>
+              </div>
+            </li>
+          </ul>
         </div>
+      </details>
+    </div>
+  </section>
 
-        <div class="sec">
-          <h2>4) Термины</h2>
-          <p>
-            <b>КП</b> — Команда проекта. <br/>
-            <b>ГМ</b> — GameMaster, ведущий RP и события. <br/>
-            <b>АДМ</b> — Администрация, следит за соблюдением правил и настройкой сервера. <br/>
-            <b>ГлАДМ</b> — главный администратор. <br/>
-            <b>ГлГМ</b> — главный гейммастер, отвечает за лор и ГМ.
-          </p>
+  <section class="card">
+    <h2>3. Общение</h2>
+    <div class="acc">
+      <details open>
+        <summary>3.1–3.11 Комфорт и безопасность <span class="tag">сообщество</span></summary>
+        <div class="content">
+          <ul>
+            <li><b>3.1</b> Запрещено общее неадекватное поведение.</li>
+            <li><b>3.2</b> Мат разрешён умеренно.</li>
+            <li><b>3.3</b> Спам запрещён.</li>
+            <li><b>3.4</b> Оскорбления запрещены.</li>
+            <li><b>3.5</b> Угрозы IRL, доксинг, сватинг запрещены.</li>
+            <li><b>3.6</b> Реклама без разрешения запрещена (ЛС/каналы).</li>
+            <li><b>3.7</b> Запрещены провокации на нарушения.</li>
+            <li><b>3.8</b> Спам в голосовых запрещён.</li>
+            <li><b>3.9</b> 18+/шок-контент — только в предназначенных каналах.</li>
+            <li><b>3.10</b> Дискриминация запрещена.</li>
+            <li><b>3.11</b> Пропаганда нацизма/фашизма запрещена.</li>
+          </ul>
         </div>
+      </details>
+    </div>
+  </section>
 
-        <div class="sec">
-          <h2>5) Правила ГМ</h2>
-          <ol>
-            <li>ГМ запрещено вести отыгрыш “для себя”.</li>
-            <li>Если ГМ не может вести — предупреждает старших КП и участников ветки.</li>
-            <li>Запрещено вести персонажа другого ГМ без разрешения ведущего (или ГлГМ, если нет ответа 12+ часов).</li>
-            <li>Личное отношение ГМ и игрока не влияет на отыгрыш.</li>
-            <li>Персонаж ГМ не участвует в сцене, где ГМ ведёт игрока (назначается другой ГМ на время сцены).</li>
-            <li>Запрещено без согласования с ГлГМ вводить глобальные артефакты/мобов/НПС/политические и криминальные мемы, события влияния на мир.</li>
-            <li>ГМ следит за соответствием экипировки/навыков/знаний/характера персонажа.</li>
-            <li>Окончательная смерть персонажа игрока — только с согласованием ГлГМ (или по заранее прописанным условиям кампании).</li>
-          </ol>
+  <section class="card">
+    <h2>5. Правила ГМ</h2>
+    <div class="acc">
+      <details open>
+        <summary>5.1–5.8 Проводник, не игрок <span class="tag glow">GM</span></summary>
+        <div class="content">
+          <ul>
+            <li><b>5.1</b> ГМ нельзя отыгрывать «для себя».</li>
+            <li><b>5.2</b> Если ГМ не может вести — предупреждает старших КП и участников ветки.</li>
+            <li><b>5.3</b> Нельзя вести персонажа другого ГМ без разрешения (или ГлГМ при отсутствии ответа 12 часов).</li>
+            <li><b>5.4</b> Личное отношение не влияет на отыгрыш.</li>
+            <li><b>5.5</b> Персонаж ГМ не участвует там же, где игрок, которого он ведёт (назначается другой ГМ).</li>
+            <li><b>5.6</b> Запрещено без согласования с ГлГМ вводить глобальные артефакты/мобов/НПС/организации/события.</li>
+            <li><b>5.7</b> ГМ следит за соответствием персонажа: экипировка/навыки/знания/характер.</li>
+            <li><b>5.8</b> Нельзя окончательно убивать персонажа игрока без согласования с ГлГМ.</li>
+          </ul>
         </div>
+      </details>
+    </div>
+  </section>
 
-        <div class="sec">
-          <h2>6) Правила АДМ</h2>
-          <ol>
-            <li>Запрещено злоупотреблять полномочиями для личной выгоды/веселья.</li>
-            <li>Запрещено наказывать за то, чего нет в правилах (исключение: ГлАДМ и угрозы безопасности).</li>
-            <li>Запрещено хамское общение с игроками.</li>
-            <li>Нельзя игнорировать очевидные нарушения правил.</li>
-            <li>Наказание выдаётся по тяжести нарушения (бан за мелкий оффтоп — недопустимо). Исключение: ГлАДМ/анти-рейд.</li>
-          </ol>
+  <section class="card">
+    <h2>6. Правила Администрации</h2>
+    <div class="acc">
+      <details open>
+        <summary>6.1–6.5 Сила = ответственность <span class="tag glow">ADM</span></summary>
+        <div class="content">
+          <ul>
+            <li><b>6.1</b> Запрещено злоупотреблять полномочиями.</li>
+            <li><b>6.2</b> Нельзя наказывать за «не прописанное» (исключение: ГлАДМ).</li>
+            <li><b>6.3</b> Запрещено хамство и токсичность.</li>
+            <li><b>6.4</b> Нельзя игнорировать явные нарушения правил.</li>
+            <li><b>6.5</b> Наказания соразмерны нарушению (исключение: ГлАДМ).</li>
+          </ul>
         </div>
+      </details>
+    </div>
+  </section>
 
-        <div class="sec">
-          <h2>7) Система наказаний (рекомендуемая)</h2>
-          <ol>
-            <li>Лёгкие нарушения: предупреждение → мут/таймаут.</li>
-            <li>Средние: таймаут → временный бан.</li>
-            <li>Тяжёлые: бан (угрозы, доксинг, сватинг, травля, рейд).</li>
-          </ol>
-          <div class="note">Конкретика зависит от ситуации и решений ГлАДМ/КП.</div>
-        </div>
+  <div class="footer">Если не уверен — спроси ГМ/КП. Лучше уточнить, чем получить наказание.</div>
+</div>
 
-      </div>
-    </section>
-  </main>
+<script type="module" src="app.js"></script>
 </body>
 </html>
