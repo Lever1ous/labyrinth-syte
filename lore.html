@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Лабиринт — Лор</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  <style>
+    :root{--bg:#070A10;--text:#EAF0FF;--muted:#A9B4D6;--line:rgba(255,255,255,.08);--accent:#7AA2F7;--accent2:#BB9AF7;--radius:18px;--shadow:0 10px 40px rgba(0,0,0,.45);}
+    *{box-sizing:border-box}
+    body{margin:0;font-family:Inter,system-ui;color:var(--text);
+      background: radial-gradient(1200px 700px at 20% -10%, rgba(187,154,247,.18), transparent 60%),
+                  radial-gradient(900px 600px at 90% 10%, rgba(122,162,247,.18), transparent 55%),
+                  var(--bg);min-height:100vh;}
+    a{color:inherit;text-decoration:none}
+    .wrap{max-width:1100px;margin:0 auto;padding:22px}
+    .nav{position:sticky;top:0;z-index:10;backdrop-filter:blur(10px);
+      background:linear-gradient(to bottom, rgba(7,10,16,.86), rgba(7,10,16,.55));border-bottom:1px solid var(--line);}
+    .nav-inner{display:flex;gap:14px;align-items:center;justify-content:space-between;max-width:1100px;margin:0 auto;padding:14px 22px;}
+    .brand{display:flex;align-items:center;gap:12px;font-weight:800;letter-spacing:.6px}
+    .logo{width:34px;height:34px;border-radius:12px;background:radial-gradient(circle at 30% 30%, rgba(187,154,247,.8), rgba(122,162,247,.5) 45%, rgba(0,0,0,.2) 70%);
+      box-shadow:0 0 0 1px var(--line), 0 10px 30px rgba(122,162,247,.15);}
+    .links{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+    .pill{padding:10px 12px;border-radius:999px;border:1px solid var(--line);background:rgba(12,18,32,.55);color:var(--muted);transition:.2s;font-weight:600;font-size:13px}
+    .pill:hover{transform:translateY(-1px);border-color:rgba(122,162,247,.35);color:var(--text)}
+    .pill.active{color:var(--text);border-color:rgba(122,162,247,.55);box-shadow:0 0 0 3px rgba(122,162,247,.12)}
+    .box{border:1px solid var(--line);background:linear-gradient(180deg, rgba(12,18,32,.75), rgba(10,15,28,.55));border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden}
+    .head{padding:18px;border-bottom:1px solid var(--line)}
+    h1{margin:0;font-size:24px}
+    .sub{margin:8px 0 0;color:var(--muted);line-height:1.6}
+    .grid{padding:18px;display:grid;grid-template-columns:1.05fr .95fr;gap:14px}
+    .sec{border:1px solid var(--line);border-radius:16px;background:rgba(7,10,16,.35);padding:14px}
+    .sec h2{margin:0 0 8px;font-size:14px}
+    .sec p, .sec li{color:rgba(233,240,255,.9);line-height:1.6;font-size:13px}
+    ul{margin:0;padding-left:18px}
+    .mini{color:var(--muted);font-size:12px;line-height:1.6}
+    .tag{display:inline-flex;gap:8px;align-items:center;padding:8px 10px;border:1px solid var(--line);border-radius:999px;background:rgba(12,18,32,.55);color:var(--muted);font-size:12px}
+    @media (max-width:900px){.grid{grid-template-columns:1fr}}
+  </style>
+</head>
+
+<body>
+  <header class="nav">
+    <div class="nav-inner">
+      <div class="brand">
+        <div class="logo"></div>
+        <div>
+          <div>ЛАБИРИНТ</div>
+          <div style="font-size:12px;color:var(--muted);font-weight:600;letter-spacing:0">лор мира</div>
+        </div>
+      </div>
+      <nav class="links">
+        <a class="pill" href="index.html">Главная</a>
+        <a class="pill" href="rules.html">Правила</a>
+        <a class="pill active" href="lore.html">Лор</a>
+        <a class="pill" href="magic.html">Магия</a>
+        <a class="pill" href="team.html">Команда</a>
+        <a class="pill" href="panel.html">Панель КП</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="box">
+      <div class="head">
+        <h1>🧭 Лор “Лабиринта”</h1>
+        <div class="sub">
+          Мир-ловушка, живой и растущий. Он притягивает тех, чьи желания в момент кризиса были сильнее всего —
+          по зову плоти, души или жажды власти. Лабиринт питается эмоциями, изучает их и превращает жизнь гостей в игру.
+        </div>
+      </div>
+
+      <div class="grid">
+        <div class="sec">
+          <h2>Ключевые механики мира</h2>
+          <ul>
+            <li><b>Отпечаток</b>: на теле проявляется метка — отражение глубинной страсти, приведшей сюда.</li>
+            <li><b>Эхо Совместимости</b>: близость (страсть/доверие/подчинение) создаёт вспышки силы и общие видения.</li>
+            <li><b>Растущий Лабиринт</b>: локации рождаются из коллективных снов, страхов и желаний; старые исчезают без подпитки.</li>
+          </ul>
+          <div class="tag" style="margin-top:10px">Интрига: <b>Инкубатор</b> выращивает из союзов нечто новое — эмоции, формы жизни, возможно богов.</div>
+        </div>
+
+        <div class="sec">
+          <h2>Фракции</h2>
+          <ul>
+            <li><b>Гедонисты</b>: усиливают отпечатки через связи и наслаждение. Девиз: “Чувствуй глубже”.</li>
+            <li><b>Стражи</b>: изучают рост мира, картографируют зоны, ищут “сердце” системы.</li>
+            <li><b>Охотники на Эхо</b>: охотятся на гостей ради силы и отпечатков. Закон джунглей.</li>
+            <li><b>Бродяги</b>: нейтральные, строят быт и торгуют в стабильных зонах.</li>
+          </ul>
+          <div class="mini">Фракции — это не “классы”, а социальные центры притяжения. Игрок может быть независимым.</div>
+        </div>
+
+        <div class="sec">
+          <h2>Локации (основные)</h2>
+          <ul>
+            <li><b>Ядро</b>: стабильный район-пристань. Таверны, рынки, жилые гроты.</li>
+            <li><b>Поля Мимолётных Наслаждений</b>: блуждающая локация, усиливает чувства.</li>
+            <li><b>Чертоги Памяти</b>: залы, где стены показывают обрывки воспоминаний гостей.</li>
+            <li><b>Цех Изменений</b>: попытки изменить/скрыть Отпечаток. Рискованно.</li>
+            <li><b>Фронтир</b>: кромка мира, где рождаются новые зоны. Опасно и благодатно.</li>
+          </ul>
+          <div class="mini">У вас всегда есть “безопасные” точки для социалки и “края” для приключений.</div>
+        </div>
+
+        <div class="sec">
+          <h2>Еженедельные события (пример)</h2>
+          <ul>
+            <li><b>Прилив Тихих Воспоминаний</b>: раз в неделю море успокаивается, всплывают нейтральные моменты счастья.</li>
+            <li><b>Ночной Рынок Невидимого</b>: торговля нематериальным — навыками, историями, эмоциями.</li>
+            <li><b>Цветение Странствующего Сада</b>: сад появляется на 12–24 часа и исчезает.</li>
+            <li><b>Вечер Рассказчиков</b>: костры Бродяг, бытовые истории и тихое сообщество.</li>
+            <li><b>Парад Мимолётных Масок</b>: безопасная игра ролей в “Грех и Шёлк”.</li>
+          </ul>
+        </div>
+
+        <div class="sec">
+          <h2>Нью-Вавилон (Ядро)</h2>
+          <p>
+            Столица-крепость, многослойный город-организм. Он “растёт” и перестраивается, а его устойчивые зоны
+            часто привязаны к гармоничным союзам Отпечатков.
+          </p>
+          <ul>
+            <li>Вертикальная структура: <b>27 ярусов</b> (подробнее — в отдельных материалах проекта).</li>
+            <li>Сильные союзы могут “стабилизировать” новые районы.</li>
+            <li>Эмоции и память — валюта, власть и ресурс.</li>
+          </ul>
+          <div class="mini">Если нужно — мы вынесем “Архитектуру Нью-Вавилона” в отдельную страницу позднее.</div>
+        </div>
+
+        <div class="sec">
+          <h2>Что дальше?</h2>
+          <ul>
+            <li>Хочешь магию и Отпечатки — жми <b>Магия</b>.</li>
+            <li>Хочешь правила — жми <b>Правила</b>.</li>
+            <li>КП управляет анкетами — жми <b>Панель КП</b>.</li>
+          </ul>
+          <a class="tag" href="magic.html">Перейти к Магии →</a>
+        </div>
+      </div>
+    </section>
+  </main>
+</body>
+</html>
