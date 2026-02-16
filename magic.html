@@ -1,0 +1,456 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Лабиринт — Магия</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  <style>
+    :root{--bg:#070A10;--text:#EAF0FF;--muted:#A9B4D6;--line:rgba(255,255,255,.08);--accent:#7AA2F7;--accent2:#BB9AF7;--good:#9ECE6A;--bad:#F7768E;--warn:#E0AF68;--radius:18px;--shadow:0 10px 40px rgba(0,0,0,.45);}
+    *{box-sizing:border-box}
+    body{margin:0;font-family:Inter,system-ui;color:var(--text);
+      background: radial-gradient(1200px 700px at 20% -10%, rgba(187,154,247,.18), transparent 60%),
+                  radial-gradient(900px 600px at 90% 10%, rgba(122,162,247,.18), transparent 55%),
+                  radial-gradient(900px 600px at 50% 120%, rgba(158,206,106,.10), transparent 55%),
+                  var(--bg);min-height:100vh;}
+    a{color:inherit;text-decoration:none}
+    .wrap{max-width:1100px;margin:0 auto;padding:22px}
+    .nav{position:sticky;top:0;z-index:10;backdrop-filter:blur(10px);
+      background:linear-gradient(to bottom, rgba(7,10,16,.86), rgba(7,10,16,.55));border-bottom:1px solid var(--line);}
+    .nav-inner{display:flex;gap:14px;align-items:center;justify-content:space-between;max-width:1100px;margin:0 auto;padding:14px 22px;}
+    .brand{display:flex;align-items:center;gap:12px;font-weight:800;letter-spacing:.6px}
+    .logo{width:34px;height:34px;border-radius:12px;background:radial-gradient(circle at 30% 30%, rgba(187,154,247,.8), rgba(122,162,247,.5) 45%, rgba(0,0,0,.2) 70%);
+      box-shadow:0 0 0 1px var(--line), 0 10px 30px rgba(122,162,247,.15);}
+    .links{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+    .pill{padding:10px 12px;border-radius:999px;border:1px solid var(--line);background:rgba(12,18,32,.55);color:var(--muted);transition:.2s;font-weight:600;font-size:13px}
+    .pill:hover{transform:translateY(-1px);border-color:rgba(122,162,247,.35);color:var(--text)}
+    .pill.active{color:var(--text);border-color:rgba(122,162,247,.55);box-shadow:0 0 0 3px rgba(122,162,247,.12)}
+    .box{border:1px solid var(--line);background:linear-gradient(180deg, rgba(12,18,32,.75), rgba(10,15,28,.55));border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden}
+    .head{padding:18px;border-bottom:1px solid var(--line)}
+    h1{margin:0;font-size:24px}
+    .sub{margin:8px 0 0;color:var(--muted);line-height:1.6}
+    .content{padding:18px;display:grid;gap:14px}
+    .row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+    @media (max-width:900px){.row{grid-template-columns:1fr}}
+    .sec{border:1px solid var(--line);border-radius:16px;background:rgba(7,10,16,.35);padding:14px}
+    .sec h2{margin:0 0 8px;font-size:14px}
+    .sec p, .sec li{color:rgba(233,240,255,.9);line-height:1.6;font-size:13px}
+    ul{margin:0;padding-left:18px}
+    .tag{display:inline-flex;gap:8px;align-items:center;padding:8px 10px;border:1px solid var(--line);border-radius:999px;background:rgba(12,18,32,.55);color:var(--muted);font-size:12px}
+    details{
+      border:1px solid var(--line);
+      border-radius:16px;
+      background:rgba(7,10,16,.35);
+      overflow:hidden;
+    }
+    summary{
+      cursor:pointer;
+      padding:14px;
+      list-style:none;
+      display:flex;align-items:center;justify-content:space-between;gap:10px;
+      font-weight:800;
+    }
+    summary::-webkit-details-marker{display:none}
+    .chev{opacity:.75;font-weight:900}
+    details[open] summary{border-bottom:1px solid var(--line);background:rgba(12,18,32,.35)}
+    .inside{padding:14px}
+    .ability{
+      border:1px solid var(--line);
+      border-radius:14px;
+      background:rgba(12,18,32,.35);
+      padding:12px;
+      margin:10px 0;
+    }
+    .ability h3{margin:0 0 6px;font-size:13px}
+    .ability p{margin:0;color:var(--muted);font-size:12.5px;line-height:1.55}
+    .meta{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+    .m{padding:6px 8px;border-radius:999px;border:1px solid var(--line);background:rgba(7,10,16,.35);color:rgba(233,240,255,.68);font-size:11px}
+  </style>
+</head>
+
+<body>
+<header class="nav">
+  <div class="nav-inner">
+    <div class="brand">
+      <div class="logo"></div>
+      <div>
+        <div>ЛАБИРИНТ</div>
+        <div style="font-size:12px;color:var(--muted);font-weight:600;letter-spacing:0">магия и отпечатки</div>
+      </div>
+    </div>
+    <nav class="links">
+      <a class="pill" href="index.html">Главная</a>
+      <a class="pill" href="rules.html">Правила</a>
+      <a class="pill" href="lore.html">Лор</a>
+      <a class="pill active" href="magic.html">Магия</a>
+      <a class="pill" href="team.html">Команда</a>
+      <a class="pill" href="panel.html">Панель КП</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+  <section class="box">
+    <div class="head">
+      <h1>🌀 Магия Лабиринта</h1>
+      <div class="sub">
+        Магия — воплощённое желание и искажённая реальность. Её правила диктуют Отпечатки, Эхо Совместимости и ткань мира.
+      </div>
+    </div>
+
+    <div class="content">
+      <div class="row">
+        <div class="sec">
+          <h2>Источники магии</h2>
+          <ul>
+            <li><b>Эхо Совместимости</b> (основное): контакт отпечатков → вспышка силы, видения, обмен ощущениями/способностями.</li>
+            <li><b>Форсинг</b>: насильственная связка (угроза/шантаж/магия) — мощно, нестабильно, может “сжечь” отпечаток.</li>
+            <li><b>Самостройная реальность</b>: “плетение” комнат по запросу — цена эмоциями, памятью или фрагментами отпечатков.</li>
+          </ul>
+        </div>
+        <div class="sec">
+          <h2>Ограничения и опасности</h2>
+          <ul>
+            <li><b>Обратная связь</b>: сила всегда бьёт по заклинателю (исцелил — принял боль, вызвал гнев — сжёг нервы).</li>
+            <li><b>Голод Лабиринта</b>: частая магия привлекает внимание — испытания, искушения, “оплата”.</li>
+            <li><b>Разрыв</b>: магия связи против одного из партнёров рвёт отпечатки → зона мёртвой магии.</li>
+            <li><b>Становление</b>: стать своим желанием (исчезнуть, растаять, превратиться в карту и т.п.).</li>
+          </ul>
+          <div class="tag">Валюта: чистые эмоции и воспоминания в кристаллах/сосудах.</div>
+        </div>
+      </div>
+
+      <!-- ПЛОТЬ -->
+      <details>
+        <summary>ПЛОТЬ — тело, чувства, внешний облик <span class="chev">+</span></summary>
+        <div class="inside">
+          <div class="ability">
+            <h3>1) Искажение тела</h3>
+            <p>Временная смена внешности и параметров тела под влиянием сильного желания (своего или партнёра).</p>
+            <div class="meta"><span class="m">актив</span><span class="m">контакт усиливает</span><span class="m">обратная связь: усталость</span></div>
+          </div>
+          <div class="ability">
+            <h3>2) Снятие границ</h3>
+            <p>Короткое “слияние” границ тела: глубокое исцеление или наслаждение-боль. Опасно при Форсинге.</p>
+            <div class="meta"><span class="m">ритуал/актив</span><span class="m">риск Становления</span></div>
+          </div>
+          <div class="ability">
+            <h3>3) Рост</h3>
+            <p>Ускоренная регенерация через контакт/близость. Чем сильнее связь — тем быстрее заживление.</p>
+            <div class="meta"><span class="m">пассив/условный</span><span class="m">цена: боль партнёра откликается</span></div>
+          </div>
+          <div class="ability">
+            <h3>4) Якорная кожа</h3>
+            <p>На минуту “фиксирует” тело от деформаций реальности (меньше ломается/крутит). Цена — синяки изнутри.</p>
+            <div class="meta"><span class="m">актив</span><span class="m">цена: внутренние микротравмы</span></div>
+          </div>
+          <div class="ability">
+            <h3>5) Острота нервов</h3>
+            <p>Повышает реакции и чувствительность (вплоть до предугадывания касаний). Цена — гиперболь после.</p>
+            <div class="meta"><span class="m">актив</span><span class="m">цена: перегруз ощущений</span></div>
+          </div>
+          <div class="ability">
+            <h3>6) Шрам-ключ</h3>
+            <p>“Открывает” старый шрам как канал: через него можно вытянуть яд/инфекцию или наоборот — принять часть чужой боли.</p>
+            <div class="meta"><span class="m">актив</span><span class="m">цена: перенос страдания</span></div>
+          </div>
+          <div class="ability">
+            <h3>7) Голос вкуса</h3>
+            <p>Речь становится “осязаемой”: можно убаюкать, разжечь желание, сбить концентрацию. Сильно зависит от Эха.</p>
+            <div class="meta"><span class="m">социальная</span><span class="m">цена: осиплость/жар в груди</span></div>
+          </div>
+          <div class="ability">
+            <h3>8) Плоть-маска</h3>
+            <p>Скрывает признаки отпечатка/ран на время, делая носителя “обычным”. Цена — отпечаток сильнее зудит позже.</p>
+            <div class="meta"><span class="m">актив</span><span class="m">цена: откат</span></div>
+          </div>
+          <div class="ability">
+            <h3>9) Тепловая клятва</h3>
+            <p>При обещании/контакте можно “пометить” кожу партнёра теплом: пока обещание живо — метка греет; при лжи — жжёт.</p>
+            <div class="meta"><span class="m">контракт</span><span class="m">риск Разрыва при Форсинге</span></div>
+          </div>
+          <div class="ability">
+            <h3>10) Пересборка боли</h3>
+            <p>Позволяет перераспределить боль по телу (снять с сердца → в руку). Не лечит, но спасает в критический момент.</p>
+            <div class="meta"><span class="m">актив</span><span class="m">цена: онемение/судороги</span></div>
+          </div>
+        </div>
+      </details>
+
+      <!-- ВЛАСТЬ -->
+      <details>
+        <summary>ВЛАСТЬ — контроль, долг, господство/подчинение <span class="chev">+</span></summary>
+        <div class="inside">
+          <div class="ability">
+            <h3>1) Вес твоего слова</h3>
+            <p>Обещание становится физическим долгом. Лжец “тяжелеет”, клятва тянет к исполнению. Снять можно, забрав часть груза себе.</p>
+            <div class="meta"><span class="m">контракт</span><span class="m">цена: тяжесть на носителе</span></div>
+          </div>
+          <div class="ability">
+            <h3>2) Прядь времени (Подмосток)</h3>
+            <p>На секунду “натягивает” почти-событие: удар мажет, дверь чуть приоткрыта. Цена — обрыв собственной будущей удачи.</p>
+            <div class="meta"><span class="m">актив</span><span class="m">цена: сужение судьбы</span></div>
+          </div>
+          <div class="ability">
+            <h3>3) Глаз мироздания</h3>
+            <p>Вспышка истинной сути: без иллюзий и названий. Цена — временная “холодная” деперсонализация реальности.</p>
+            <div class="meta"><span class="m">актив</span><span class="m">цена: потеря смысла на время</span></div>
+          </div>
+          <div class="ability">
+            <h3>4) Указ (односекундный)</h3>
+            <p>Короткая команда, которую трудно игнорировать (не абсолютный контроль): “Стой!”, “Смотри!”, “Молчи!”.</p>
+            <div class="meta"><span class="m">актив</span><span class="m">ограничение: 1 цель</span><span class="m">цена: мигрень</span></div>
+          </div>
+          <div class="ability">
+            <h3>5) Печать подчинения</h3>
+            <p>При согласии/сделке оставляет метку-печать: нарушитель ощущает стыд/жар и слабость. Форсинг опасен Разрывом.</p>
+            <div class="meta"><span class="m">контракт</span><span class="m">цена: часть контроля “залипает” на носителе</span></div>
+          </div>
+          <div class="ability">
+            <h3>6) Аура превосходства</h3>
+            <p>В радиусе пары метров люди невольно снижают голос/темп. Носитель тоже становится жёстче и менее эмпатичен.</p>
+            <div class="meta"><span class="m">пассив/триггер</span><span class="m">цена: эмоциональная сухость</span></div>
+          </div>
+          <div class="ability">
+            <h3>7) Долговая нить</h3>
+            <p>Видит “кто кому должен” как тонкие канаты. Можно потянуть — напомнить телу о долге (усталость/тяжесть).</p>
+            <div class="meta"><span class="m">видение</span><span class="m">цена: чужие обязательства давят на носителя</span></div>
+          </div>
+          <div class="ability">
+            <h3>8) Суд без слов</h3>
+            <p>В споре заставляет пространство “наклоняться” к правде: у лжеца путается речь, у честного дыхание ровнее.</p>
+            <div class="meta"><span class="m">социальная</span><span class="m">ограничение: в зоне мёртвой магии не работает</span></div>
+          </div>
+          <div class="ability">
+            <h3>9) Изъятие привилегии</h3>
+            <p>На минуту “отключает” у цели один навык/привычку (например, точную стрельбу) — если есть моральное превосходство/долг.</p>
+            <div class="meta"><span class="m">актив</span><span class="m">цена: откат — у носителя тоже провал навыка</span></div>
+          </div>
+          <div class="ability">
+            <h3>10) Клятва-щит</h3>
+            <p>Если носитель честно пообещал защитить — часть ударов/вреда “переписывается” на него. Работает пока клятва искренняя.</p>
+            <div class="meta"><span class="m">условный</span><span class="m">цена: реальный урон по носителю</span></div>
+          </div>
+        </div>
+      </details>
+
+      <!-- СВЯЗЬ -->
+      <details>
+        <summary>СВЯЗЬ — эмоции, память, нити отношений <span class="chev">+</span></summary>
+        <div class="inside">
+          <div class="ability">
+            <h3>1) Нить</h3>
+            <p>Создаёт видимую нить между существами: серебро — привязанность, красный — страсть, чёрный — ненависть, гниющий — зависимость. Можно усилить/ослабить/перерезать (псих. травма).</p>
+            <div class="meta"><span class="m">актив</span><span class="m">риск: Разрыв</span></div>
+          </div>
+          <div class="ability">
+            <h3>2) Эхо-призрак</h3>
+            <p>Фантом по сильному воспоминанию: говорит, но не влияет на физику. Живёт, пока память жива.</p>
+            <div class="meta"><span class="m">ритуал</span><span class="m">цена: тоска/потеря сна</span></div>
+          </div>
+          <div class="ability">
+            <h3>3) Обмен</h3>
+            <p>Добровольный обмен памятью/навыком/фрагментом отпечатка. Необратимо.</p>
+            <div class="meta"><span class="m">контракт</span><span class="m">цена: “пустота” в личности</span></div>
+          </div>
+          <div class="ability">
+            <h3>4) Резонанс-пульс</h3>
+            <p>Если связь сильная — можно синхронизировать дыхание/сердцебиение: успокоить панический приступ или наоборот “раскачать” ярость.</p>
+            <div class="meta"><span class="m">актив</span><span class="m">цена: берёшь эмоцию на себя</span></div>
+          </div>
+          <div class="ability">
+            <h3>5) Совместное зрение</h3>
+            <p>На короткое время видишь глазами партнёра (только при доверии/близости). Форсинг опасен.</p>
+            <div class="meta"><span class="m">актив</span><span class="m">ограничение: 1–2 минуты</span></div>
+          </div>
+          <div class="ability">
+            <h3>6) Ладонь-якорь</h3>
+            <p>При касании создаёт “якорь” присутствия: потерявшийся в меняющейся зоне может найти носителя по ощущению тепла/голоса.</p>
+            <div class="meta"><span class="m">поддержка</span><span class="m">цена: усталость</span></div>
+          </div>
+          <div class="ability">
+            <h3>7) Узел обета</h3>
+            <p>Связывает двух людей небольшим обетом (“не лгать”, “не бросать”). Нарушение вызывает тошноту/головокружение у обоих.</p>
+            <div class="meta"><span class="m">контракт</span><span class="m">риск: Разрыв</span></div>
+          </div>
+          <div class="ability">
+            <h3>8) Память на двоих</h3>
+            <p>Если один забыл — второй может “подсветить” воспоминание через Эхо (как сон-вспышка).</p>
+            <div class="meta"><span class="m">условный</span><span class="m">цена: головная боль</span></div>
+          </div>
+          <div class="ability">
+            <h3>9) Сердечная дистанция</h3>
+            <p>Чувствуешь, насколько близко/далеко важный человек (не метры, а “тепло связи”).</p>
+            <div class="meta"><span class="m">пассив</span><span class="m">ограничение: глушится мёртвой магией</span></div>
+          </div>
+          <div class="ability">
+            <h3>10) Развязка</h3>
+            <p>Мягко ослабляет токсичную зависимость (гниющую нить) при согласии цели. Цена — носитель временно чувствует пустоту/одиночество.</p>
+            <div class="meta"><span class="m">поддержка</span><span class="m">цена: эмоциональный откат</span></div>
+          </div>
+        </div>
+      </details>
+
+      <!-- БЕГСТВО -->
+      <details>
+        <summary>БЕГСТВО — исчезновение, холод, “выйти из реальности” <span class="chev">+</span></summary>
+        <div class="inside">
+          <div class="ability">
+            <h3>1) Морозная свежесть</h3>
+            <p>Пассивная аура (0.5м): температура ниже на 3–4°, появляется морозная дымка при контакте с горячим.</p>
+            <div class="meta"><span class="m">пассив</span><span class="m">цена: чужой дискомфорт рядом</span></div>
+          </div>
+          <div class="ability">
+            <h3>2) Стазис</h3>
+            <p>Останавливает ухудшение раны/органа (не лечит). После — онемение на часы. Для другого нужен 4-мин контакт и доверие.</p>
+            <div class="meta"><span class="m">актив</span><span class="m">ограничение: не спасает от “смертельной пустоты”</span></div>
+          </div>
+          <div class="ability">
+            <h3>3) Метель</h3>
+            <p>Неконтролируемая вспышка в страхе: замедляет всё вокруг, оставляет “зону вечной зимы”. Риск Становления.</p>
+            <div class="meta"><span class="m">триггер</span><span class="m">цена: опасна союзникам</span></div>
+          </div>
+          <div class="ability">
+            <h3>4) Стеклянный взгляд</h3>
+            <p>Пассив: при долгом взгляде цель ощущает себя “не замечаемой”, как призрак. Обесценивание вместо страха.</p>
+            <div class="meta"><span class="m">пассив</span><span class="m">социальная травма</span></div>
+          </div>
+          <div class="ability">
+            <h3>5) След на воде</h3>
+            <p>Короткая “пустая тропа” 3–5м: звуки/запахи/силуэт не фиксируются. После — забываешь цель ухода на минуты.</p>
+            <div class="meta"><span class="m">актив</span><span class="m">цена: провалы памяти</span></div>
+          </div>
+          <div class="ability">
+            <h3>6) Комната без углов</h3>
+            <p>Ритуал: кокон изоляции без звука/времени/голода. Чем дольше — тем меньше хочется возвращаться.</p>
+            <div class="meta"><span class="m">ритуал</span><span class="m">опасность: зависимость</span></div>
+          </div>
+          <div class="ability">
+            <h3>7) Крадущийся шорох</h3>
+            <p>На 30–60 сек “приглушает” звук шагов/дыхания. Хорошо для скрытности и ухода.</p>
+            <div class="meta"><span class="m">актив</span><span class="m">цена: звон в ушах</span></div>
+          </div>
+          <div class="ability">
+            <h3>8) Порог отсутствия</h3>
+            <p>Переступив линию (дверь/порог), можно “стереть” себя из чужого внимания на минуту, если никто прямо не держит за руку.</p>
+            <div class="meta"><span class="m">актив</span><span class="m">цена: дрожь/озноб</span></div>
+          </div>
+          <div class="ability">
+            <h3>9) Холодный залог</h3>
+            <p>Можно “забрать” часть боли/паники у другого, превратив в ледяной комок в груди. Позже комок треснет откатом.</p>
+            <div class="meta"><span class="m">поддержка</span><span class="m">цена: откат позже</span></div>
+          </div>
+          <div class="ability">
+            <h3>10) Срыв координат</h3>
+            <p>На секунду путает направление преследователя: коридор кажется “в другую сторону”. Работает лучше в нестабильных зонах.</p>
+            <div class="meta"><span class="m">актив</span><span class="m">ограничение: не против сильной навигации</span></div>
+          </div>
+        </div>
+      </details>
+
+      <!-- ЗНАНИЕ -->
+      <details>
+        <summary>ЗНАНИЕ — тайны, руны, данные, фундаментальные законы <span class="chev">+</span></summary>
+        <div class="inside">
+          <div class="ability"><h3>1) Глаза с бегущими строками</h3><p>Видишь “подписи” реальности (символы/коды), находишь слабые места магии и структуры зоны.</p><div class="meta"><span class="m">пассив/актив</span><span class="m">цена: усталость глаз</span></div></div>
+          <div class="ability"><h3>2) Шёпот страниц</h3><p>Тату-краешек страниц шуршит при важной информации: предупреждает о лжи/ловушке/аномалии.</p><div class="meta"><span class="m">пассив</span><span class="m">цена: шум мешает спать</span></div></div>
+          <div class="ability"><h3>3) Холодные пальцы</h3><p>Касание к стеклу/металлу/коже оставляет иней-узор: можно “снять слепок” данных (следы, руны, отпечаток предмета).</p><div class="meta"><span class="m">актив</span><span class="m">цена: онемение</span></div></div>
+          <div class="ability"><h3>4) Взлом узора</h3><p>На секунды “ломает” простую магическую защиту, показывая ключ-символ. Не работает против сложных печатей без подготовки.</p><div class="meta"><span class="m">актив</span><span class="m">цена: мигрень</span></div></div>
+          <div class="ability"><h3>5) Линза истины</h3><p>Создаёт короткий конус анализа: видит скрытые механизмы комнаты, ложные стены, подмену предметов.</p><div class="meta"><span class="m">актив</span><span class="m">ограничение: 10–20 сек</span></div></div>
+
+          <!-- +5 придуманных -->
+          <div class="ability"><h3>6) Архив-эхо</h3><p>Воспроизводит “эхо” последних минут в месте (как аудио/образ), но обрывками и без точных лиц. Чем сильнее эмоция — тем яснее.</p><div class="meta"><span class="m">актив</span><span class="m">цена: чужие чувства давят</span></div></div>
+          <div class="ability"><h3>7) Мнемо-ключ</h3><p>Если видел механизм/заклинание один раз — можешь собрать упрощённую схему и повторить слабую версию.</p><div class="meta"><span class="m">условный</span><span class="m">цена: забываешь мелочи о себе</span></div></div>
+          <div class="ability"><h3>8) Формула маршрута</h3><p>Короткая “формула” стабилизирует путь: на 5–10 минут меньше случайных развилок/подмен коридоров.</p><div class="meta"><span class="m">ритуал-лайт</span><span class="m">цена: истощение</span></div></div>
+          <div class="ability"><h3>9) Запрос к Лабиринту</h3><p>Задаёшь вопрос — Лабиринт отвечает символами/знаками (не словами). Риск: ответ может быть ловушкой-испытанием.</p><div class="meta"><span class="m">ритуал</span><span class="m">риск: “внимание” Лабиринта</span></div></div>
+          <div class="ability"><h3>10) Соль логики</h3><p>На минуту повышает “логичность” зоны вокруг (меньше абсурда). Но потом откат: реальность становится ещё капризнее.</p><div class="meta"><span class="m">актив</span><span class="m">цена: откат хаоса</span></div></div>
+        </div>
+      </details>
+
+      <!-- ИСКАЖЕНИЕ -->
+      <details>
+        <summary>ИСКАЖЕНИЕ — “не быть собой”, чужие формы, отражения <span class="chev">+</span></summary>
+        <div class="inside">
+          <div class="ability"><h3>1) Отражение-чужестранец</h3><p>В отражениях ты иной (пол/возраст/раса). Можно на секунды “позаимствовать” черту отражения (голос, походка).</p><div class="meta"><span class="m">условный</span><span class="m">цена: расфокус личности</span></div></div>
+          <div class="ability"><h3>2) Кожа-хамелеон</h3><p>Кожа подстраивается под фон с задержкой; при усилии — делает тебя “плавающим” пятном.</p><div class="meta"><span class="m">пассив/актив</span><span class="m">цена: зуд/жжение</span></div></div>
+          <div class="ability"><h3>3) Голоса в шрамах</h3><p>Шрамы шепчут обрывки прошлых диалогов. Можно “вызвать” нужную фразу, как подсказку/обманку.</p><div class="meta"><span class="m">социальная</span><span class="m">цена: навязчивые голоса</span></div></div>
+
+          <!-- +7 придуманных -->
+          <div class="ability"><h3>4) Сдвиг пола реальности</h3><p>На 10 сек меняет “правила” восприятия: то, что было “твёрдым”, кажется “мягким” (не физически, а для разума) — ломает концентрацию цели.</p><div class="meta"><span class="m">актив</span><span class="m">цена: дезориентация у носителя</span></div></div>
+          <div class="ability"><h3>5) Чужая подпись</h3><p>Оставляешь следы/почерк как у другого человека (не копия личности, а узнаваемая манера). Полезно для интриг.</p><div class="meta"><span class="m">актив</span><span class="m">цена: провалы самоощущения</span></div></div>
+          <div class="ability"><h3>6) Маска-перекос</h3><p>В разговоре на минуту смещает то, как тебя воспринимают: “надежнее”, “опаснее”, “жалче”. Не действует на тех, кто тебя знает слишком хорошо.</p><div class="meta"><span class="m">социальная</span><span class="m">ограничение: близкие иммуннее</span></div></div>
+          <div class="ability"><h3>7) Снятие имени</h3><p>На короткое время “имя” цели выскальзывает из памяти окружающих (не личность, а обращение). Ломает координацию группы.</p><div class="meta"><span class="m">актив</span><span class="m">цена: забываешь слово сам</span></div></div>
+          <div class="ability"><h3>8) Ломаный кадр</h3><p>Делает твоё движение “рывками”, как плохое видео. Сложнее попасть. После — дрожь в суставах.</p><div class="meta"><span class="m">актив</span><span class="m">цена: боль</span></div></div>
+          <div class="ability"><h3>9) Перекройка силуэта</h3><p>Меняет пропорции тела на 1–2 часа (рост/плечи/лицо) без полной смены личности. Цена — усталость и “чужая” мимика.</p><div class="meta"><span class="m">актив</span><span class="m">цена: риск Становления</span></div></div>
+          <div class="ability"><h3>10) Зеркальная трещина</h3><p>Короткий проход “в отражение” на шаг-два (как уклонение). Работает только при наличии отражающей поверхности/влаги.</p><div class="meta"><span class="m">актив</span><span class="m">ограничение: условия</span></div></div>
+        </div>
+      </details>
+
+      <!-- СОЗИДАНИЕ/РАЗРУШЕНИЕ -->
+      <details>
+        <summary>СОЗИДАНИЕ / РАЗРУШЕНИЕ — строить или ломать до нуля <span class="chev">+</span></summary>
+        <div class="inside">
+          <div class="ability"><h3>1) Пальцы-пепел</h3><p>Кончики пальцев покрыты пеплом: оставляют “сажистые” отпечатки, которые можно использовать как метки/руны.</p><div class="meta"><span class="m">пассив</span><span class="m">цена: следы выдают</span></div></div>
+          <div class="ability"><h3>2) Дыхание увядания/цветения</h3><p>Выдох — дымка, которая либо вянет, либо оживляет мелкую флору (в зависимости от полюса желания).</p><div class="meta"><span class="m">актив</span><span class="m">цена: слабость</span></div></div>
+          <div class="ability"><h3>3) Биение, раскалывающее хрупкое</h3><p>Голубая линия-пульс на запястье: при всплеске эмоций рядом трескается стекло/фарфор.</p><div class="meta"><span class="m">триггер</span><span class="m">цена: боль в груди</span></div></div>
+          <div class="ability"><h3>4) Слёзы созидания/разрушения</h3><p>Слёзы оставляют либо мгновенный хрупкий цветок, либо дымящуюся ямку.</p><div class="meta"><span class="m">условный</span><span class="m">цена: эмоциональное выгорание</span></div></div>
+
+          <!-- +6 придуманных -->
+          <div class="ability"><h3>5) Каркас</h3><p>В зоне нестабильности “вплетает” простой каркас предмета (щит, лестница, мостик). Чем яснее образ — тем надёжнее.</p><div class="meta"><span class="m">актив</span><span class="m">цена: требует эмоций/ресурса</span></div></div>
+          <div class="ability"><h3>6) Ржавый укус</h3><p>Ускоряет распад металла/конструкции в маленькой точке (болт, замок). После — пальцы дрожат.</p><div class="meta"><span class="m">актив</span><span class="m">цена: судороги</span></div></div>
+          <div class="ability"><h3>7) Сшивка трещины</h3><p>Коротко “зашивает” разрыв/дыру в стене/поле, делая место безопасным на минуту-две.</p><div class="meta"><span class="m">поддержка</span><span class="m">цена: забирает материал из окружающего</span></div></div>
+          <div class="ability"><h3>8) Поджог смысла</h3><p>Не огонь, а “раскал эмоции”: цель быстрее злится/ломает решения. Опасно для союзников.</p><div class="meta"><span class="m">социальная</span><span class="m">цена: твой гнев растёт</span></div></div>
+          <div class="ability"><h3>9) Ремонт за боль</h3><p>Можешь починить механизм/предмет, но берёшь на себя “боль поломки” — ломит суставы, будто ты был железом.</p><div class="meta"><span class="m">актив</span><span class="m">цена: физическая боль</span></div></div>
+          <div class="ability"><h3>10) Нуль-жест</h3><p>Раз в сцену “обнуляет” один маленький объект (верёвка, замок, знак) — превращает в прах/пустоту. Цена — потеря одного мелкого воспоминания.</p><div class="meta"><span class="m">ультра</span><span class="m">цена: память</span></div></div>
+        </div>
+      </details>
+
+      <!-- ПАМЯТЬ/ЗАБВЕНИЕ -->
+      <details>
+        <summary>ПАМЯТЬ / ЗАБВЕНИЕ — прошлое, стирание, скорбь <span class="chev">+</span></summary>
+        <div class="inside">
+          <div class="ability">
+            <h3>1) Похороны мёртвых бабочек (ядро)</h3>
+            <p>Сбор скорби из предметов → тёмная субстанция → ч/б бабочка. Хранение в “гробе”. Выпуск — режет/некроз/передача печали.</p>
+            <div class="meta"><span class="m">система</span><span class="m">цена: ангедония</span><span class="m">риск: духи скорби</span></div>
+          </div>
+          <div class="ability"><h3>2) Сбор</h3><p>Касанием вытягиваешь негатив утраты из объекта и формируешь бабочку. Чем сильнее печаль — тем “ядовитее”.</p><div class="meta"><span class="m">ритуал</span><span class="m">цена: пережить боль заново</span></div></div>
+          <div class="ability"><h3>3) Хранение</h3><p>Гроб удерживает бабочек. Повреждение гроба вызывает сильную обратную волну печали (опасно для носителя).</p><div class="meta"><span class="m">условный</span><span class="m">критическая уязвимость</span></div></div>
+          <div class="ability"><h3>4) Выстрел</h3><p>Бабочки летят как снаряды и “ищут” цель. В зоне поражения — некроз/дезориентация печалью.</p><div class="meta"><span class="m">актив</span><span class="m">ограничение: зависит от запаса</span></div></div>
+
+          <!-- +6 придуманных -->
+          <div class="ability"><h3>5) Пепельный альбом</h3><p>Оставляешь “фото-синяк” на коже: краткий образ важного воспоминания. Можно показать без слов.</p><div class="meta"><span class="m">социальная</span><span class="m">цена: тоска</span></div></div>
+          <div class="ability"><h3>6) Стирание края</h3><p>На минуту сглаживает острые эмоции (паника/ярость) у цели — но забирает часть яркости твоих собственных чувств.</p><div class="meta"><span class="m">поддержка</span><span class="m">цена: эмоциональная бледность</span></div></div>
+          <div class="ability"><h3>7) Долгий кадр</h3><p>Замедляет восприятие времени через воспоминание: цель “залипает” в прошлом на пару секунд.</p><div class="meta"><span class="m">актив</span><span class="m">цена: ты тоже на миг вспоминаешь боль</span></div></div>
+          <div class="ability"><h3>8) Память-наживка</h3><p>Оставляешь ложный след воспоминания, на который “клюют” эмоциональные паразиты вместо твоей группы.</p><div class="meta"><span class="m">тактика</span><span class="m">цена: часть твоей памяти мутнеет</span></div></div>
+          <div class="ability"><h3>9) Возврат имени</h3><p>Если кого-то “стерло” зоной, можно вернуть имя через личный предмет и сильную эмоцию связи.</p><div class="meta"><span class="m">ритуал</span><span class="m">цена: отдаёшь собственный тёплый момент</span></div></div>
+          <div class="ability"><h3>10) Кладбище слов</h3><p>Запирает одну фразу/обет внутри “гроба”: никто не может произнести её в зоне рядом. Снятие — ломает горло носителю на время.</p><div class="meta"><span class="m">контроль</span><span class="m">цена: боль речи</span></div></div>
+        </div>
+      </details>
+
+      <div class="sec">
+        <h2>Примечание по балансу</h2>
+        <p>
+          Эти способности — “шаблоны” для RP. ГМ может корректировать дальность, длительность и эффект по ситуации,
+          чтобы сохранять логику мира и избегать power-gaming.
+        </p>
+        <span class="tag">Хочешь, я добавлю “уровни силы” (I–III) для каждой способности и правила апгрейда через Эхо?</span>
+      </div>
+
+    </div>
+  </section>
+</main>
+
+<script>
+  // маленький UX: менять плюс/минус
+  document.querySelectorAll("details").forEach(d => {
+    const s = d.querySelector("summary .chev");
+    const sync = () => s.textContent = d.open ? "–" : "+";
+    sync();
+    d.addEventListener("toggle", sync);
+  });
+</script>
+</body>
+</html>
